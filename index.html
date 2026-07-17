@@ -39,6 +39,10 @@
     background:var(--off-white);
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23ffffff' stroke='%231D0C17' stroke-width='1.5'%3E%3Cellipse cx='16' cy='21' rx='8' ry='6.5'/%3E%3Cellipse cx='8' cy='13' rx='3' ry='4'/%3E%3Cellipse cx='14' cy='9' rx='3' ry='4.2'/%3E%3Cellipse cx='21' cy='9.5' rx='3' ry='4'/%3E%3Cellipse cx='26' cy='14' rx='2.7' ry='3.6'/%3E%3C/g%3E%3C/svg%3E") 8 6, auto;
+  }
+  a, button, [role="button"], .quote.add, .btn, #music-toggle{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23ffffff' stroke='%23820076' stroke-width='2.5'%3E%3Cellipse cx='16' cy='21' rx='8' ry='6.5'/%3E%3Cellipse cx='8' cy='13' rx='3' ry='4'/%3E%3Cellipse cx='14' cy='9' rx='3' ry='4.2'/%3E%3Cellipse cx='21' cy='9.5' rx='3' ry='4'/%3E%3Cellipse cx='26' cy='14' rx='2.7' ry='3.6'/%3E%3C/g%3E%3C/svg%3E") 8 6, pointer;
   }
   h1,h2,h3,.display{font-family:'Inter Tight','Inter',sans-serif;letter-spacing:-0.02em;line-height:1.02}
 
@@ -168,6 +172,16 @@
 
   /* confetti canvas */
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:90}
+
+  /* music toggle */
+  #music-toggle{position:fixed;bottom:20px;left:20px;z-index:95;display:flex;align-items:center;gap:10px;background:var(--purple-70);color:#fff;padding:12px 18px;border-radius:999px;font-family:'Inter Tight';font-weight:700;font-size:14px;box-shadow:0 10px 30px rgba(66,0,59,.35);border:none;max-width:78vw;transition:transform .15s,background .2s}
+  #music-toggle:hover{transform:translateY(-2px)}
+  #music-toggle.playing{background:var(--purple-60)}
+  #music-toggle .mt-icon{font-size:18px;line-height:1;display:inline-block}
+  #music-toggle.playing .mt-icon{animation:spin 3s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(max-width:520px){#music-toggle .mt-text{display:none}#music-toggle{padding:14px}}
+  #yt-holder{position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
@@ -341,6 +355,13 @@
   </div>
 </section>
 
+<!-- floating music toggle -->
+<button id="music-toggle" aria-label="Play Kat's song">
+  <span class="mt-icon">🎵</span>
+  <span class="mt-text">Listen to Kat's main character song while you read</span>
+</button>
+<div id="yt-holder" aria-hidden="true"><div id="yt-player"></div></div>
+
 <footer>Made with 💜 by the team · A fake insights report, 100% real appreciation · Draft — swap placeholders with real details</footer>
 
 <script>
@@ -400,6 +421,45 @@
   // auto-burst when finale enters view (once)
   const fio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){burst();fio.unobserve(e.target)}})},{threshold:.6});
   fio.observe(document.getElementById('finale'));
+
+  /* ---------- YouTube "main character song" toggle ---------- */
+  /* Paste the YouTube video ID of Kat's song below (the part after v= in the URL,
+     e.g. for https://www.youtube.com/watch?v=abc123XYZ  →  "abc123XYZ").
+     Until then the button just shows a friendly reminder. */
+  const KAT_SONG_YOUTUBE_ID = "hJ_burYdegk";
+  const KAT_SONG_URL = "https://www.youtube.com/watch?v="+KAT_SONG_YOUTUBE_ID;
+
+  const mt=document.getElementById('music-toggle');
+  const mtText=mt.querySelector('.mt-text');
+  let ytPlayer=null, ytReady=false, ytPlaying=false, ytFailed=false;
+
+  function syncMt(){
+    if(ytFailed){mt.classList.remove('playing');mtText.textContent="Open Kat's song on YouTube ↗";return;}
+    if(ytPlaying){mt.classList.add('playing');mtText.textContent="Pause Kat's song";}
+    else{mt.classList.remove('playing');mtText.textContent="Listen to Kat's main character song while you read";}
+  }
+  function openSong(){window.open(KAT_SONG_URL,"_blank","noopener");}
+
+  const tag=document.createElement('script');
+  tag.src="https://www.youtube.com/iframe_api";
+  tag.onerror=()=>{ytFailed=true;syncMt();};
+  document.head.appendChild(tag);
+  window.onYouTubeIframeAPIReady=function(){
+    ytPlayer=new YT.Player('yt-player',{
+      height:'1',width:'1',videoId:KAT_SONG_YOUTUBE_ID,
+      playerVars:{playsinline:1,controls:0,rel:0,loop:1,playlist:KAT_SONG_YOUTUBE_ID},
+      events:{
+        onReady:()=>{ytReady=true;},
+        onStateChange:(e)=>{ytPlaying=(e.data===YT.PlayerState.PLAYING);syncMt();},
+        onError:()=>{ytFailed=true;syncMt();}
+      }
+    });
+  };
+  mt.addEventListener('click',()=>{
+    if(ytFailed || !ytReady){openSong();return;}
+    if(ytPlaying){ytPlayer.pauseVideo();}
+    else{ytPlayer.setVolume(35);ytPlayer.unMute();ytPlayer.playVideo();}
+  });
 </script>
 </body>
 </html>
