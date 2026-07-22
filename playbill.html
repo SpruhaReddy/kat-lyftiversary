@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PLAYBILL · Kat Murray · Ten Years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#FAF8F2;
+    --ink:#141414;
+    --yellow:#F6D311;
+    --purple:#820076;
+    --muted:#6b675e;
+    --cream-line:#ddd6c6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'EB Garamond',Georgia,serif;color:var(--ink);background:#0d060b;-webkit-font-smoothing:antialiased;overflow:hidden}
+  h1,h2,h3,.disp{font-family:'Playfair Display',Georgia,serif}
+
+  .theater{position:fixed;inset:0;background:radial-gradient(130% 120% at 50% 0%,#2a0f26 0%,#1a0d16 55%,#0d060b 100%);display:flex;align-items:center;justify-content:center}
+  .theater::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 40px,rgba(255,255,255,.012) 40px 42px);pointer-events:none}
+
+  .stage{position:relative;aspect-ratio:5/8;height:min(92vh,calc(94vw * 1.6));perspective:1600px;perspective-origin:50% 45%}
+  .page{position:absolute;inset:0;transform-origin:left center;transition:transform .8s cubic-bezier(.35,.12,.2,1);backface-visibility:hidden;
+    background:var(--paper);border:2px solid var(--ink);box-shadow:0 24px 70px rgba(0,0,0,.5);
+    display:flex;flex-direction:column;overflow-y:auto;padding:clamp(18px,3.2vw,38px);will-change:transform}
+  .page::before{content:'';position:absolute;top:0;bottom:0;left:0;width:36px;background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,0));pointer-events:none;z-index:5}
+  .page.cover::before{display:none}
+  .page::-webkit-scrollbar{width:8px}
+  .page::-webkit-scrollbar-thumb{background:var(--cream-line);border-radius:4px}
+
+  .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:12px;margin-bottom:auto;flex-shrink:0}
+  .runhead .wm{font-family:'Playfair Display';font-weight:900;font-size:16px;letter-spacing:.02em}
+  .kick{background:var(--yellow);color:var(--ink);font-family:'Playfair Display';font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--ink)}
+  .runfoot{border-top:1.5px solid var(--ink);padding-top:10px;margin-top:auto;flex-shrink:0;display:flex;justify-content:space-between;font-family:'Playfair Display';font-size:11px;letter-spacing:.16em;color:var(--muted)}
+
+  .content{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;padding:26px 0}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease .1s,transform .6s ease .1s}
+  .page.active .reveal{opacity:1;transform:none}
+  .page.active .d1{transition-delay:.18s}.page.active .d2{transition-delay:.28s}.page.active .d3{transition-delay:.38s}
+
+  .sect-title{font-family:'Playfair Display';font-weight:900;font-size:clamp(28px,5.5vw,46px);line-height:1.04;margin:14px 0 6px}
+  .sect-sub{font-style:italic;color:var(--muted);font-size:17px;margin-bottom:26px}
+  .ph-note{font-family:'Playfair Display';font-size:11px;color:var(--purple);font-weight:700}
+
+  /* cover page */
+  .page.cover{padding:0;align-items:stretch}
+  .cover .content{padding:0;justify-content:flex-start}
+  .cbanner{background:var(--yellow);border-bottom:2px solid var(--ink);text-align:center;padding:16px}
+  .cbanner .wm{font-family:'Playfair Display';font-weight:900;font-size:clamp(36px,9vw,52px);letter-spacing:.02em}
+  .cbody{text-align:center;padding:clamp(20px,4vw,34px) 26px}
+  .c-theatre{font-family:'Playfair Display';font-weight:700;font-size:13px;letter-spacing:.24em;color:var(--purple)}
+  .c-rule{height:1px;background:var(--ink);opacity:.7;margin:12px auto;width:66%}
+  .c-presents{font-style:italic;color:var(--muted)}
+  .c-title{font-family:'Playfair Display';font-weight:900;font-size:clamp(50px,13vw,86px);line-height:.9;margin:12px 0 6px}
+  .c-story{font-style:italic;font-size:20px;color:#444}
+  .c-star-lbl{font-family:'Playfair Display';font-size:12px;letter-spacing:.34em;color:#9a9a9a;margin-top:22px}
+  .c-star{font-family:'Playfair Display';font-weight:900;font-size:clamp(28px,7vw,40px);margin-top:6px}
+  .c-with{font-style:italic;font-size:15px;color:#666;margin-top:8px}
+  .c-portrait{width:clamp(150px,40vw,196px);aspect-ratio:1;border-radius:50%;border:3px solid var(--ink);overflow:hidden;margin:10px auto 6px;background:#111}
+  .c-portrait video{width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.55);transform-origin:center 40%;display:block}
+  .c-foot{background:var(--ink);color:var(--yellow);text-align:center;padding:14px;margin-top:auto;font-family:'Playfair Display';font-size:12px;letter-spacing:.14em}
+  .c-foot .dates{display:block;color:var(--paper);letter-spacing:.24em;margin-top:4px}
+
+  .bulbs{display:flex;gap:13px;justify-content:center;margin:18px 0}
+  .bulbs i{width:9px;height:9px;border-radius:50%;background:var(--yellow);border:1px solid var(--ink)}
+
+  /* stat table */
+  .num-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:2px solid var(--ink)}
+  .cell{padding:22px 16px;border-right:1px solid var(--cream-line);border-bottom:1px solid var(--cream-line);text-align:center}
+  .cell .big{font-family:'Playfair Display';font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1}
+  .cell .cap{font-style:italic;color:var(--muted);margin-top:6px;font-size:14px}
+  .cell .pn{font-family:'Playfair Display';font-size:10px;color:var(--purple);font-weight:700;margin-top:4px}
+
+  /* acts listing */
+  .act{display:flex;align-items:baseline;gap:14px;padding:15px 2px;border-bottom:1px solid var(--cream-line)}
+  .act:first-child{border-top:2px solid var(--ink)}
+  .act:last-child{border-bottom:2px solid var(--ink)}
+  .act .num{font-family:'Playfair Display';font-weight:900;font-size:19px;color:var(--purple);min-width:70px}
+  .act .t{font-family:'Playfair Display';font-weight:700;font-size:18px}
+  .act .d{color:var(--muted);font-size:16px;margin-top:2px}
+  .act .d em{color:var(--purple);font-style:normal}
+  .acts .content{justify-content:flex-start;padding:10px 0}
+  .acts .sect-title{margin:2px 0 8px;flex:0 0 auto}
+  .acts .content > div{flex:1 1 auto;display:flex;flex-direction:column}
+  .acts .act{flex:1 1 0;align-items:center;padding:6px 2px}
+  .acts .act .num{font-size:17px;min-width:62px}
+  .acts .act .t{font-size:16px}
+  .acts .act .d{font-size:14.5px;line-height:1.33;margin-top:1px}
+
+  /* accolades */
+  .accolades .content{justify-content:space-between;padding:16px 0}
+  .accolades .sect-title{margin:0 0 2px}
+  .accolades .medallions{margin:0}
+
+  /* tallies */
+  .tallies .content{justify-content:flex-start;padding:12px 0}
+  .tallies .sect-title{margin:2px 0 2px}
+  .tallies .hero{background:var(--ink);color:var(--yellow);text-align:center;padding:16px;margin:14px 0}
+  .tallies .hero .hn{font-family:'Playfair Display';font-weight:900;font-size:clamp(38px,9vw,48px);line-height:1}
+  .tallies .hero .hs{font-style:italic;color:var(--paper);font-size:13px;letter-spacing:.03em;margin-top:4px}
+  .tallies .num-grid{flex:1 1 auto;grid-template-rows:1fr 1fr}
+  .tallies .cell{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .tallies .cell .cap{font-style:italic}
+  .medallions{display:flex;gap:12px;margin:14px 0 20px}
+  .medal{flex:1;text-align:center}
+  .medal .disc{position:relative;width:clamp(52px,12vw,66px);aspect-ratio:1;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;overflow:hidden;font-family:'Playfair Display';font-weight:900;font-size:26px;color:var(--ink)}
+  .medal .disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .medal .mt{font-family:'Playfair Display';font-weight:700;font-size:13px;line-height:1.15}
+  .medal .ms{font-style:italic;font-size:11.5px;color:var(--muted);margin-top:2px}
+  .chip-label{font-family:'Playfair Display';font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;line-height:1.2}
+  .chip{border:1px solid var(--ink);border-radius:999px;padding:6px 12px;font-size:13px}
+  .chip.fun{background:#F6DDFE;border-color:var(--purple);color:#5c0054}
+  .legend{display:flex;gap:16px;justify-content:center;font-family:'Playfair Display';font-size:11px;color:var(--muted);margin-top:14px}
+  .legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;border:1px solid var(--ink);vertical-align:middle;margin-right:5px}
+  .legend .dot.fun{background:#F6DDFE;border-color:var(--purple)}
+
+  /* cast */
+  .cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:16px}
+  .member{text-align:center}
+  .member .hs{width:60px;height:60px;border-radius:50%;margin:0 auto 6px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-weight:900;font-size:20px;background:var(--paper)}
+  .member .nm{font-family:'Playfair Display';font-weight:700;font-size:13px}
+  .member .rl{font-style:italic;color:var(--muted);font-size:12px}
+
+  /* photos */
+  .photo{border:6px solid var(--paper);outline:1.5px solid var(--ink);background:#eee9dc;overflow:hidden}
+  .photo img{width:100%;display:block}
+  .photo .fb{aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--purple)}
+  .photo .fb .ic{font-size:30px;margin-bottom:6px}
+  .photo .fb .cp{font-family:'Playfair Display';font-weight:700;font-size:13px}
+  .photo .fb .fl{font-size:11px;color:var(--muted);margin-top:4px;font-family:monospace}
+  .figcap{font-style:italic;color:var(--muted);font-size:13px;margin-top:6px;text-align:center}
+
+  /* nikki */
+  .nikki-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
+  @media(max-width:600px){.nikki-grid{grid-template-columns:1fr}}
+  .featuring{font-family:'Playfair Display';font-style:italic;font-size:19px;color:var(--purple);margin-top:12px}
+
+  /* critics */
+  .rave{border:1.5px solid var(--ink);padding:18px;margin-bottom:16px;background:var(--paper)}
+  .stars{color:var(--purple);letter-spacing:2px;font-size:15px;margin-bottom:6px}
+  .rave .qt{font-size:17px;line-height:1.4;font-style:italic}
+  .rave .src{font-family:'Playfair Display';font-weight:700;font-size:13px;margin-top:10px}
+  .rave .src span{font-style:italic;font-weight:400;color:var(--muted)}
+  .rave.add{border-style:dashed;text-align:center;color:var(--muted);font-family:'Playfair Display'}
+
+  /* sponsor */
+  .ad{border:2px solid var(--ink);padding:30px;text-align:center}
+  .ad .k{font-family:'Playfair Display';font-size:12px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
+  .ad .h{font-family:'Playfair Display';font-weight:900;font-size:clamp(26px,5vw,40px);margin:12px 0}
+  .ad .p{font-style:italic;color:var(--muted);font-size:16px}
+
+  /* curtain call */
+  .page.finale{background:var(--ink)}
+  .finale .runhead,.finale .runfoot{border-color:#4a3a44}
+  .finale .runhead .wm,.finale .runfoot{color:var(--paper)}
+  .finale .content{text-align:center}
+  .finale .kick{background:var(--yellow)}
+  .finale .big{font-family:'Playfair Display';font-weight:900;font-size:clamp(46px,11vw,86px);line-height:.95;color:var(--paper);margin:14px 0}
+  .finale .big em{color:var(--yellow);font-style:italic}
+  .finale p{font-style:italic;font-size:18px;color:#d8cdd3;max-width:460px;margin:0 auto}
+  .btn{display:inline-block;margin-top:26px;background:var(--yellow);color:var(--ink);font-family:'Playfair Display';font-weight:700;letter-spacing:.05em;padding:14px 30px;border:2px solid var(--paper);cursor:pointer;font-size:16px}
+  .btn:hover{transform:scale(1.04)}
+
+  /* nav */
+  .nav{position:fixed;top:50%;transform:translateY(-50%);z-index:60;width:52px;height:52px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);font-size:22px;font-family:'Playfair Display';font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+  .nav:hover{background:#fff}
+  #prev{left:16px}
+  #next{right:16px}
+  @media(max-width:640px){.nav{width:44px;height:44px}}
+  #counter{position:fixed;bottom:18px;left:0;right:0;text-align:center;z-index:60;font-family:'Playfair Display';font-weight:700;font-size:13px;letter-spacing:.16em;color:var(--yellow)}
+  .hint{position:fixed;bottom:38px;left:0;right:0;text-align:center;z-index:60;font-family:'Playfair Display';font-style:italic;font-size:12px;color:#b9a9b4}
+
+  .switcher{position:fixed;top:14px;right:14px;z-index:65;background:var(--paper);border:1.5px solid var(--ink);font-family:'Playfair Display';font-weight:700;font-size:12px;padding:7px 12px;text-decoration:none;color:var(--ink)}
+
+  #music-toggle{position:fixed;bottom:16px;left:16px;z-index:65;display:flex;align-items:center;gap:9px;background:var(--yellow);color:var(--ink);padding:11px 16px;border:2px solid var(--ink);font-family:'Playfair Display';font-weight:700;font-size:13px;box-shadow:4px 4px 0 var(--purple);cursor:pointer;max-width:70vw}
+  #music-toggle:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--purple)}
+  #music-toggle.playing .mt-icon{animation:spin 3s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(max-width:620px){#music-toggle .mt-text{display:none}}
+  #yt-holder{position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;opacity:0;pointer-events:none}
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:80}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<a href="index.html" class="switcher">↩ Wrapped version</a>
+<div class="theater">
+  <div class="stage" id="stage">
+
+    <!-- PAGE 1 · COVER -->
+    <section class="page cover">
+      <div class="content">
+        <div class="cbanner"><div class="wm">PLAYBILL</div></div>
+        <div class="cbody">
+          <div class="c-theatre">THE LYFT THEATRE</div>
+          <div class="c-rule"></div>
+          <div class="c-portrait"><video src="ohmurray.mp4" autoplay muted loop playsinline></video></div>
+          <div class="c-title">TEN<br>YEARS</div>
+          <div class="c-story">A Lyft Story</div>
+          <div class="c-star-lbl">STARRING</div>
+          <div class="c-star">KAT MURRAY</div>
+          <div class="c-with">with NIKKI as “The Cat”</div>
+        </div>
+        <div class="c-foot">★&nbsp;&nbsp;10TH ANNIVERSARY PRODUCTION&nbsp;&nbsp;★<span class="dates">2016 &nbsp;·&nbsp; 2026</span></div>
+      </div>
+    </section>
+
+    <!-- PAGE 2 · ABOUT -->
+    <section class="page">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">About tonight's production</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal">A ten-year run.</h2>
+        <p class="sect-sub reveal d1">Premiered July 31, 2016. Still playing to full houses.</p>
+        <div class="num-grid reveal d2">
+          <div class="cell"><div class="big"><span class="count" data-to="10">0</span></div><div class="cap">years on stage this July</div></div>
+          <div class="cell"><div class="big">#<span class="count" data-to="130">0</span></div><div class="cap">in the cast, of 4,208 (an original company member)</div></div>
+          <div class="cell"><div class="big"><span class="count" data-to="96.9" data-dec="1">0</span>%</div><div class="cap">of the company joined after her</div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>EST. 2016</span></div>
+    </section>
+
+    <!-- PAGE 3 · ACTS -->
+    <section class="page acts">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Acts &amp; Scenes</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal">The story so far</h2>
+        <div class="reveal d1">
+          <div class="act"><div class="num">ACT I</div><div><div class="t">2016 · The Audition</div><div class="d">She arrives as a contractor, a one-year trial run. Every great run starts with an audition.</div></div></div>
+          <div class="act"><div class="num">ACT II</div><div><div class="t">2017 · No Turning Back</div><div class="d">The contract becomes a full-time role. She's all in, and here for the long haul.</div></div></div>
+          <div class="act"><div class="num">ACT III</div><div><div class="t">2019 · Opening Night on Wall Street</div><div class="d">Lyft goes public, three years after Kat first stepped on stage.</div></div></div>
+          <div class="act"><div class="num">ACT IV</div><div><div class="t">2018–2026 · Building the Ensemble</div><div class="d">She builds the Research team and leads the MBA team, with sold-out special appearances in NYC and SF.</div></div></div>
+          <div class="act"><div class="num">ENCORE</div><div><div class="t">2026 · Ten Years</div><div class="d">Leading a team of 15, ten years deep, and still the star of the show.</div></div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE STORY</span></div>
+    </section>
+
+    <!-- PAGE 4 · ACCOLADES -->
+    <section class="page accolades">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Awards &amp; honors</span></div>
+      <div class="content">
+        <div>
+          <h2 class="sect-title reveal">Accolades</h2>
+          <p class="sect-sub reveal d1" style="margin-bottom:0">Ten years. Thirty-one badges. One legend.</p>
+        </div>
+        <div class="medallions reveal d1">
+          <div class="medal"><div class="disc"><i class="ti ti-award" aria-hidden="true"></i></div><div class="mt">5-Star Manager</div><div class="ms">Best in a leading role</div></div>
+          <div class="medal"><div class="disc"><i class="ti ti-trophy" aria-hidden="true"></i></div><div class="mt">Research Jeopardy</div><div class="ms">Reigning champion</div></div>
+          <div class="medal"><div class="disc"><i class="ti ti-cpu" aria-hidden="true"></i></div><div class="mt">AI Champion</div><div class="ms">First in, last to hallucinate</div></div>
+        </div>
+        <div>
+        <div class="chip-label reveal d2">The full program</div>
+        <div class="chips reveal d2">
+          <span class="chip">RAP co-founder</span>
+          <span class="chip">Amplify grad</span>
+          <span class="chip">LUX-AP 2022 core team</span>
+          <span class="chip">Active interviewer</span>
+          <span class="chip">PeopleDev Hero</span>
+          <span class="chip">Perf &amp; Promo coach</span>
+          <span class="chip">Inaugural Manager Summit</span>
+          <span class="chip">Accessible design astronaut</span>
+          <span class="chip">CRXLAB cohort</span>
+          <span class="chip">Lunch &amp; Learn facilitator</span>
+          <span class="chip">PD+ Seen Award</span>
+          <span class="chip">"I was a contractor"</span>
+          <span class="chip">Obi Enthusiast</span>
+          <span class="chip">Taco Month 2019 survivor</span>
+          <span class="chip">Rickrolled by JZ</span>
+        </div>
+        <p class="reveal d2" style="text-align:center;font-style:italic;color:var(--muted);font-size:13px;margin-top:14px">…and a dozen more, from her first Lyftiversary to Hackathon 2026.</p>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE HONORS</span></div>
+    </section>
+
+    <!-- PAGE 5 · NUMBERS -->
+    <section class="page tallies">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">By the numbers</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal">Tonight's tallies</h2>
+        <p class="sect-sub reveal d1" style="margin-bottom:0">Ten years of devotion to the product, by the numbers.</p>
+        <div class="hero reveal d1">
+          <div class="hn"><span class="count" data-to="1416">0</span></div>
+          <div class="hs">lifetime rides, and counting</div>
+        </div>
+        <div class="num-grid reveal d2">
+          <div class="cell"><div class="big"><span class="count" data-to="1140">0</span></div><div class="cap">as a passenger (a true patron)</div></div>
+          <div class="cell"><div class="big"><span class="count" data-to="267">0</span></div><div class="cap">shared rides (carpool devotee)</div></div>
+          <div class="cell"><div class="big"><span class="count" data-to="7">0</span></div><div class="cap">bike &amp; scooter joyrides</div></div>
+          <div class="cell"><div class="big"><span class="count" data-to="2">0</span></div><div class="cap">as the driver (yes, she also drives)</div></div>
+        </div>
+        <p class="reveal d2" style="text-align:center;font-style:italic;color:var(--muted);font-size:12.5px;margin-top:14px">1,416 trips, 10 years, one very loyal rider.</p>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE TALLIES</span></div>
+    </section>
+
+    <!-- PAGE 5 · CAST -->
+    <section class="page">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Who's who in the cast</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal">The Company</h2>
+        <p class="sect-sub reveal d1">Direct reports (6) &amp; the full ensemble (15). <span class="ph-note">(Swap for real names.)</span></p>
+        <div class="photo reveal d1" style="margin-bottom:20px"><img src="images/team-street.jpg" alt="The team" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🎭</div><div class="cp">The full company</div><div class="fl">images/team-street.jpg</div></div></div>
+        <div class="cast reveal d2" id="castGrid"></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE COMPANY</span></div>
+    </section>
+
+    <!-- PAGE 6 · NIKKI -->
+    <section class="page">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Featuring</span></div>
+      <div class="content">
+        <div class="nikki-grid">
+          <div class="reveal">
+            <h2 class="sect-title">Nikki</h2>
+            <div class="featuring">as “The Cat” · Apex Predator</div>
+            <p class="sect-sub" style="margin-top:14px">A scene-stealer in every Zoom. Never misses a cue, always upstages the humans, and remains the true director of the household.</p>
+          </div>
+          <div class="reveal d2">
+            <div class="photo">
+              <img src="images/nikki.jpg" alt="Nikki the cat" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="fb" style="display:none;aspect-ratio:1/1;background:#241019;color:var(--yellow)"><div class="ic">🐱</div><div class="cp" style="color:#fff">Nikki's headshot</div><div class="fl">images/nikki.jpg</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>SPECIAL GUEST</span></div>
+    </section>
+
+    <!-- PAGE 7 · STILLS -->
+    <section class="page">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal" style="margin-bottom:22px">From the archives</h2>
+        <div class="reveal d1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px">
+          <div><div class="photo"><img src="images/kat-child.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">⭐</div><div class="cp">A young star</div><div class="fl">images/kat-child.jpg</div></div></div><div class="figcap">Where it all began.</div></div>
+          <div><div class="photo"><img src="images/kat-panel.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🎤</div><div class="cp">Mid-monologue</div><div class="fl">images/kat-panel.jpg</div></div></div><div class="figcap">The star, on the panel.</div></div>
+          <div><div class="photo"><img src="images/kat-hat.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🧢</div><div class="cp">The bucket hat</div><div class="fl">images/kat-hat.jpg</div></div></div><div class="figcap">Costume design: iconic.</div></div>
+          <div><div class="photo"><img src="images/team-dinner.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🍽️</div><div class="cp">Cast dinner</div><div class="fl">images/team-dinner.jpg</div></div></div><div class="figcap">The company, after the show.</div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
+    </section>
+
+    <!-- PAGE 8 · CRITICS -->
+    <section class="page">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal" style="margin-bottom:20px">The reviews are in</h2>
+        <div class="reveal d1">
+          <div class="rave"><div class="stars">★★★★★</div><div class="qt">"[Drop a real memory or quote here, heartfelt or hilarious.]"</div><div class="src">A Teammate <span>· front row</span></div></div>
+          <div class="rave"><div class="stars">★★★★★</div><div class="qt">"[Kat taught me…]"</div><div class="src">A Direct Report <span>· the ensemble</span></div></div>
+          <div class="rave"><div class="stars">★★★★★</div><div class="qt">"[Ten years and she still…]"</div><div class="src">Jen <span>· the producer</span></div></div>
+          <div class="rave add">＋ Add your review of Kat</div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- PAGE 9 · SPONSOR -->
+    <section class="page">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">With thanks to our sponsor</span></div>
+      <div class="content">
+        <div class="ad reveal">
+          <div class="k">This production is proudly sponsored by</div>
+          <div class="h">Lyft Shared</div>
+          <div class="p">"Ten years of great rides. Here's to the next act." <span class="ph-note">(Swap for any inside-joke sponsor.)</span></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>OUR SPONSORS</span></div>
+    </section>
+
+    <!-- PAGE 10 · CURTAIN CALL -->
+    <section class="page finale">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Curtain call</span></div>
+      <div class="content">
+        <div class="reveal">
+          <div class="big">Bravo,<br><em>Kat.</em></div>
+          <p>Ten years, one incredible run, and the best is yet to come. Thank you for everything. 💜</p>
+          <button class="btn" id="celebrate">★ Standing ovation</button>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>FIN</span></div>
+    </section>
+
+  </div>
+</div>
+
+<button class="nav" id="prev" aria-label="Previous page">‹</button>
+<button class="nav" id="next" aria-label="Next page">›</button>
+<div id="counter"></div>
+<div class="hint">use ‹ › · arrow keys · or swipe</div>
+
+<button id="music-toggle" aria-label="Play the overture"><span class="mt-icon">♪</span><span class="mt-text">Overture: press to play Kat's theme</span></button>
+<div id="yt-holder" aria-hidden="true"><div id="yt-player"></div></div>
+
+<script>
+  /* cast */
+  const cast=[['DR','Ensemble'],['JS','Ensemble'],['MK','Featured'],['AL','Ensemble'],['TN','Featured'],['RS','Ensemble'],['KM','Understudy'],['PB','Ensemble'],['CV','Featured'],['EW','Ensemble'],['JD','Ensemble'],['LC','Featured'],['MP','Ensemble'],['SG','Ensemble'],['AH','Ensemble']];
+  const cg=document.getElementById('castGrid');
+  cast.forEach((m,i)=>{const d=document.createElement('div');d.className='member';d.innerHTML=`<div class="hs">${m[0]}</div><div class="nm">Cast ${i+1}</div><div class="rl">${m[1]}</div>`;cg.appendChild(d);});
+
+  function animateCount(el){
+    const to=parseFloat(el.dataset.to),dec=parseInt(el.dataset.dec||'0');
+    const dur=1300,start=performance.now();
+    function tick(now){let p=Math.min((now-start)/dur,1);p=1-Math.pow(1-p,3);const v=to*p;el.textContent=dec?v.toFixed(dec):Math.floor(v).toLocaleString();if(p<1)requestAnimationFrame(tick);else el.textContent=dec?to.toFixed(dec):to.toLocaleString();}
+    requestAnimationFrame(tick);
+  }
+
+  /* page-flip engine — pages hinge on the left spine and turn toward the viewer */
+  const pages=[...document.querySelectorAll('.page')];
+  const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next'),counter=document.getElementById('counter');
+  let cur=0,animating=false;
+  function layout(flip){
+    pages.forEach((p,i)=>{
+      p.style.transform='rotateY('+(i<cur?-180:0)+'deg)';
+      p.style.zIndex=(i<cur)?i:(500-i);
+    });
+    if(flip!=null) pages[flip].style.zIndex=900;
+  }
+  function activateCurrent(){
+    pages.forEach((p,i)=>p.classList.toggle('active',i===cur));
+    const a=pages[cur];
+    a.querySelectorAll('.count:not([data-done])').forEach(el=>{el.setAttribute('data-done','1');animateCount(el);});
+    a.scrollTop=0;
+    counter.textContent='Pg '+(cur+1)+' / '+pages.length;
+    prevBtn.style.visibility=cur===0?'hidden':'visible';
+    nextBtn.style.visibility=cur===pages.length-1?'hidden':'visible';
+    if(a.classList.contains('finale')) burst();
+  }
+  function go(d){
+    if(animating) return;
+    const n=cur+d; if(n<0||n>=pages.length) return;
+    const flip = d>0 ? cur : n;   /* forward: the page you're leaving turns; back: the page returning turns */
+    animating=true;
+    cur=n;
+    layout(flip);
+    activateCurrent();
+    setTimeout(()=>{animating=false;layout(null);},820);
+  }
+  prevBtn.addEventListener('click',()=>go(-1));
+  nextBtn.addEventListener('click',()=>go(1));
+  addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){go(1);}else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(-1);}});
+  let tx=null;
+  addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;},{passive:true});
+  addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){go(dx<0?1:-1);}tx=null;},{passive:true});
+  layout(null);
+  activateCurrent();
+
+  /* confetti */
+  const cvs=document.getElementById('confetti'),cx=cvs.getContext('2d');
+  let parts=[],raf;
+  function size(){cvs.width=innerWidth;cvs.height=innerHeight}size();addEventListener('resize',size);
+  const cols=['#F6D311','#820076','#FAF8F2','#E264E7','#141414'];
+  function burst(){parts=[];for(let i=0;i<170;i++){parts.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*16,vy:Math.random()*-16-4,g:.4+Math.random()*.3,s:6+Math.random()*8,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4})}cancelAnimationFrame(raf);loop();}
+  function loop(){cx.clearRect(0,0,cvs.width,cvs.height);let alive=false;parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;if(p.y<innerHeight+40)alive=true;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});if(alive)raf=requestAnimationFrame(loop);else cx.clearRect(0,0,cvs.width,cvs.height);}
+  document.getElementById('celebrate').addEventListener('click',burst);
+
+  /* music */
+  const KAT_SONG_YOUTUBE_ID="hJ_burYdegk";
+  const KAT_SONG_URL="https://www.youtube.com/watch?v="+KAT_SONG_YOUTUBE_ID;
+  const mt=document.getElementById('music-toggle'),mtText=mt.querySelector('.mt-text');
+  let ytPlayer=null,ytReady=false,ytPlaying=false,ytFailed=false;
+  function syncMt(){if(ytFailed){mt.classList.remove('playing');mtText.textContent="Hear Kat's theme on YouTube ↗";return;}if(ytPlaying){mt.classList.add('playing');mtText.textContent="Entr'acte: pause the theme";}else{mt.classList.remove('playing');mtText.textContent="Overture: press to play Kat's theme";}}
+  function openSong(){window.open(KAT_SONG_URL,"_blank","noopener");}
+  const tag=document.createElement('script');tag.src="https://www.youtube.com/iframe_api";tag.onerror=()=>{ytFailed=true;syncMt();};document.head.appendChild(tag);
+  window.onYouTubeIframeAPIReady=function(){ytPlayer=new YT.Player('yt-player',{height:'1',width:'1',videoId:KAT_SONG_YOUTUBE_ID,playerVars:{playsinline:1,controls:0,rel:0,loop:1,playlist:KAT_SONG_YOUTUBE_ID},events:{onReady:()=>{ytReady=true;},onStateChange:(e)=>{ytPlaying=(e.data===YT.PlayerState.PLAYING);syncMt();},onError:()=>{ytFailed=true;syncMt();}}});};
+  mt.addEventListener('click',()=>{if(ytFailed||!ytReady){openSong();return;}if(ytPlaying){ytPlayer.pauseVideo();}else{ytPlayer.setVolume(35);ytPlayer.unMute();ytPlayer.playVideo();}});
+</script>
+</body>
+</html>
