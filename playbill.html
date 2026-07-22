@@ -35,6 +35,12 @@
   .page.--right{box-shadow:inset 4px 0 12px -6px rgba(0,0,0,.28)}
   .page::-webkit-scrollbar{width:8px}
   .page::-webkit-scrollbar-thumb{background:var(--cream-line);border-radius:4px}
+  /* full double-page glossy ad — one image spanning both pages of the spread */
+  .page.adpage{padding:0;overflow:hidden;position:relative;background:#000}
+  .page.adpage img{position:absolute;top:0;height:100%;width:200%;max-width:none;object-fit:cover;display:block}
+  .page.adpage.adleft img{left:0}       /* left page shows the left half */
+  .page.adpage.adright img{right:0}     /* right page shows the right half */
+  .page.adpage .ad-tag{position:absolute;top:10px;left:14px;font-family:'Playfair Display';font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.75);z-index:2}
 
   .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:12px;margin-bottom:auto;flex-shrink:0}
   .runhead .wm{font-family:'Playfair Display';font-weight:900;font-size:16px;letter-spacing:.02em}
@@ -216,22 +222,7 @@
       </div>
     </section>
 
-    <!-- PAGE 2 · TIME & PLACE -->
-    <section class="page acts">
-      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Time &amp; place</span></div>
-      <div class="content">
-        <h2 class="sect-title reveal">The setting</h2>
-        <p class="sect-sub reveal d1">A ten-year run — and still no closing notice in sight.</p>
-        <div class="reveal d1">
-          <div class="act"><div class="num">TIME</div><div><div class="t">2016 — Present</div><div class="d">Opening night to standing ovation, one decade and counting.</div></div></div>
-          <div class="act"><div class="num">PLACE</div><div><div class="t">The Lyft Theatre</div><div class="d">San Francisco — and every Zoom room in between.</div></div></div>
-          <div class="act"><div class="num">RUN</div><div><div class="t">Ten triumphant years</div><div class="d">No two shows alike, and every one a full house.</div></div></div>
-        </div>
-      </div>
-      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE SETTING</span></div>
-    </section>
-
-    <!-- PAGE 3 · ABOUT -->
+    <!-- PAGE 2 · ABOUT -->
     <section class="page">
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">About tonight's production</span></div>
       <div class="content">
@@ -384,17 +375,13 @@
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
     </section>
 
-    <!-- PAGE 9 · SPONSOR -->
-    <section class="page">
-      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">With thanks to our sponsor</span></div>
-      <div class="content">
-        <div class="ad reveal">
-          <div class="k">This production is proudly sponsored by</div>
-          <div class="h">Lyft Shared</div>
-          <div class="p">"Ten years of great rides. Here's to the next act." <span class="ph-note">(Swap for any inside-joke sponsor.)</span></div>
-        </div>
-      </div>
-      <div class="runfoot"><span>THE LYFT THEATRE</span><span>OUR SPONSORS</span></div>
+    <!-- SPONSOR (full double-page glossy ad — left + right halves) -->
+    <section class="page adpage adleft">
+      <img src="images/lyft-ad.png" alt="Lyft Ads — featuring Kat" />
+      <span class="ad-tag">Advertisement</span>
+    </section>
+    <section class="page adpage adright">
+      <img src="images/lyft-ad.png" alt="" aria-hidden="true" />
     </section>
 
     <!-- PAGE 10 · CURTAIN CALL -->
