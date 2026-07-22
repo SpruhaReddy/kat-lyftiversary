@@ -24,12 +24,15 @@
   .theater{position:fixed;inset:0;background:radial-gradient(130% 120% at 50% 0%,#2a0f26 0%,#1a0d16 55%,#0d060b 100%);display:flex;align-items:center;justify-content:center}
   .theater::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 40px,rgba(255,255,255,.012) 40px 42px);pointer-events:none}
 
-  .stage{position:relative;aspect-ratio:5/8;height:min(92vh,calc(94vw * 1.6));perspective:1600px;perspective-origin:50% 45%}
-  .page{position:absolute;inset:0;transform-origin:left center;transition:transform .8s cubic-bezier(.35,.12,.2,1);backface-visibility:hidden;
-    background:var(--paper);border:2px solid var(--ink);box-shadow:0 24px 70px rgba(0,0,0,.5);
-    display:flex;flex-direction:column;overflow-y:auto;padding:clamp(18px,3.2vw,38px);will-change:transform}
-  .page::before{content:'';position:absolute;top:0;bottom:0;left:0;width:36px;background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(0,0,0,0));pointer-events:none;z-index:5}
-  .page.cover::before{display:none}
+  /* StPageFlip book — realistic soft paper fold, open two-page spread */
+  .stage{position:relative;overflow:hidden}
+  .stage.ready{overflow:visible}
+  .page{background:var(--paper);border:2px solid var(--ink);
+    display:flex;flex-direction:column;overflow:hidden;padding:clamp(18px,3.2vw,38px)}
+  /* before init, only show the cover so pages don't stack in normal flow */
+  .stage:not(.ready) .page:not(.cover){display:none}
+  .page.--left{box-shadow:inset -4px 0 12px -6px rgba(0,0,0,.28)}
+  .page.--right{box-shadow:inset 4px 0 12px -6px rgba(0,0,0,.28)}
   .page::-webkit-scrollbar{width:8px}
   .page::-webkit-scrollbar-thumb{background:var(--cream-line);border-radius:4px}
 
@@ -48,24 +51,25 @@
   .sect-sub{font-style:italic;color:var(--muted);font-size:17px;margin-bottom:26px}
   .ph-note{font-family:'Playfair Display';font-size:11px;color:var(--purple);font-weight:700}
 
-  /* cover page */
-  .page.cover{padding:0;align-items:stretch}
-  .cover .content{padding:0;justify-content:flex-start}
-  .cbanner{background:var(--yellow);border-bottom:2px solid var(--ink);text-align:center;padding:16px}
-  .cbanner .wm{font-family:'Playfair Display';font-weight:900;font-size:clamp(36px,9vw,52px);letter-spacing:.02em}
-  .cbody{text-align:center;padding:clamp(20px,4vw,34px) 26px}
-  .c-theatre{font-family:'Playfair Display';font-weight:700;font-size:13px;letter-spacing:.24em;color:var(--purple)}
-  .c-rule{height:1px;background:var(--ink);opacity:.7;margin:12px auto;width:66%}
+  /* cover page — classic all-yellow Playbill */
+  .page.cover{padding:0;align-items:stretch;background:var(--yellow)}
+  .cover .content{padding:0;justify-content:flex-start;background:var(--yellow)}
+  .cbanner{background:var(--yellow);text-align:center;padding:clamp(18px,3.5vw,30px) 16px 4px}
+  .cbanner .wm{font-family:'Playfair Display';font-weight:900;font-size:clamp(40px,10.5vw,68px);letter-spacing:.01em;line-height:1;color:var(--ink);display:inline-block;position:relative}
+  .cbanner .wm sup{font-size:.2em;font-weight:700;top:-1.7em;margin-left:.1em}
+  .cbody{text-align:center;padding:0 26px clamp(10px,2vw,18px)}
+  .c-theatre{font-family:'Playfair Display';font-weight:600;font-size:clamp(13px,3vw,18px);letter-spacing:.28em;color:var(--ink);text-transform:uppercase;margin-top:8px}
+  .c-rule{height:1.5px;background:var(--ink);opacity:.85;margin:12px auto 0;width:84%}
   .c-presents{font-style:italic;color:var(--muted)}
-  .c-title{font-family:'Playfair Display';font-weight:900;font-size:clamp(50px,13vw,86px);line-height:.9;margin:12px 0 6px}
-  .c-story{font-style:italic;font-size:20px;color:#444}
-  .c-star-lbl{font-family:'Playfair Display';font-size:12px;letter-spacing:.34em;color:#9a9a9a;margin-top:22px}
-  .c-star{font-family:'Playfair Display';font-weight:900;font-size:clamp(28px,7vw,40px);margin-top:6px}
-  .c-with{font-style:italic;font-size:15px;color:#666;margin-top:8px}
-  .c-portrait{width:clamp(150px,40vw,196px);aspect-ratio:1;border-radius:50%;border:3px solid var(--ink);overflow:hidden;margin:10px auto 6px;background:#111}
-  .c-portrait video{width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.55);transform-origin:center 40%;display:block}
-  .c-foot{background:var(--ink);color:var(--yellow);text-align:center;padding:14px;margin-top:auto;font-family:'Playfair Display';font-size:12px;letter-spacing:.14em}
-  .c-foot .dates{display:block;color:var(--paper);letter-spacing:.24em;margin-top:4px}
+  .c-title{font-family:'Playfair Display';font-weight:900;font-size:clamp(44px,12vw,80px);line-height:.82;margin:clamp(6px,1.5vw,12px) 0 4px;color:var(--ink)}
+  .c-story{font-style:italic;font-size:clamp(16px,3.4vw,20px);color:var(--ink)}
+  .c-star-lbl{font-family:'Playfair Display';font-size:11px;letter-spacing:.34em;color:var(--ink);opacity:.55;margin-top:14px}
+  .c-star{font-family:'Playfair Display';font-weight:900;font-size:clamp(24px,6vw,34px);margin-top:5px;color:var(--ink)}
+  .c-with{font-style:italic;font-size:14px;color:var(--ink);opacity:.7;margin-top:6px}
+  .c-portrait{width:clamp(150px,40vw,232px);aspect-ratio:1;border-radius:50%;border:none;overflow:hidden;margin:clamp(12px,3vw,22px) auto clamp(10px,2.5vw,18px);background:var(--paper)}
+  .c-portrait img{width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.08);transform-origin:center center;display:block}
+  .c-foot{background:var(--yellow);color:var(--ink);text-align:center;padding:14px;margin-top:auto;font-family:'Playfair Display';font-size:12px;letter-spacing:.14em;border-top:1.5px solid var(--ink)}
+  .c-foot .dates{display:block;color:var(--ink);opacity:.7;letter-spacing:.24em;margin-top:4px}
 
   .bulbs{display:flex;gap:13px;justify-content:center;margin:18px 0}
   .bulbs i{width:9px;height:9px;border-radius:50%;background:var(--yellow);border:1px solid var(--ink)}
@@ -197,11 +201,11 @@
     <!-- PAGE 1 · COVER -->
     <section class="page cover">
       <div class="content">
-        <div class="cbanner"><div class="wm">PLAYBILL</div></div>
+        <div class="cbanner"><div class="wm">PLAYBILL<sup>®</sup></div></div>
         <div class="cbody">
           <div class="c-theatre">THE LYFT THEATRE</div>
           <div class="c-rule"></div>
-          <div class="c-portrait"><video src="ohmurray.mp4" autoplay muted loop playsinline></video></div>
+          <div class="c-portrait"><img src="images/kat-portrait.png" alt="Kat Murray" /></div>
           <div class="c-title">TEN<br>YEARS</div>
           <div class="c-story">A Lyft Story</div>
           <div class="c-star-lbl">STARRING</div>
@@ -212,7 +216,22 @@
       </div>
     </section>
 
-    <!-- PAGE 2 · ABOUT -->
+    <!-- PAGE 2 · TIME & PLACE -->
+    <section class="page acts">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Time &amp; place</span></div>
+      <div class="content">
+        <h2 class="sect-title reveal">The setting</h2>
+        <p class="sect-sub reveal d1">A ten-year run — and still no closing notice in sight.</p>
+        <div class="reveal d1">
+          <div class="act"><div class="num">TIME</div><div><div class="t">2016 — Present</div><div class="d">Opening night to standing ovation, one decade and counting.</div></div></div>
+          <div class="act"><div class="num">PLACE</div><div><div class="t">The Lyft Theatre</div><div class="d">San Francisco — and every Zoom room in between.</div></div></div>
+          <div class="act"><div class="num">RUN</div><div><div class="t">Ten triumphant years</div><div class="d">No two shows alike, and every one a full house.</div></div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE SETTING</span></div>
+    </section>
+
+    <!-- PAGE 3 · ABOUT -->
     <section class="page">
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">About tonight's production</span></div>
       <div class="content">
@@ -402,6 +421,7 @@
 <button id="music-toggle" aria-label="Play the overture"><span class="mt-icon">♪</span><span class="mt-text">Overture: press to play Kat's theme</span></button>
 <div id="yt-holder" aria-hidden="true"><div id="yt-player"></div></div>
 
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 <script>
   /* cast */
   const cast=[['DR','Ensemble'],['JS','Ensemble'],['MK','Featured'],['AL','Ensemble'],['TN','Featured'],['RS','Ensemble'],['KM','Understudy'],['PB','Ensemble'],['CV','Featured'],['EW','Ensemble'],['JD','Ensemble'],['LC','Featured'],['MP','Ensemble'],['SG','Ensemble'],['AH','Ensemble']];
@@ -415,45 +435,49 @@
     requestAnimationFrame(tick);
   }
 
-  /* page-flip engine — pages hinge on the left spine and turn toward the viewer */
+  /* realistic soft page-fold via StPageFlip — https://nodlik.github.io/StPageFlip/
+     click/drag the right edge to advance, the left edge to go back */
   const pages=[...document.querySelectorAll('.page')];
+  const stage=document.getElementById('stage');
   const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next'),counter=document.getElementById('counter');
-  let cur=0,animating=false;
-  function layout(flip){
-    pages.forEach((p,i)=>{
-      p.style.transform='rotateY('+(i<cur?-180:0)+'deg)';
-      p.style.zIndex=(i<cur)?i:(500-i);
-    });
-    if(flip!=null) pages[flip].style.zIndex=900;
+
+  function runCounts(p){
+    if(!p) return;
+    p.querySelectorAll('.count:not([data-done])').forEach(el=>{el.setAttribute('data-done','1');animateCount(el);});
   }
-  function activateCurrent(){
-    pages.forEach((p,i)=>p.classList.toggle('active',i===cur));
-    const a=pages[cur];
-    a.querySelectorAll('.count:not([data-done])').forEach(el=>{el.setAttribute('data-done','1');animateCount(el);});
-    a.scrollTop=0;
-    counter.textContent='Pg '+(cur+1)+' / '+pages.length;
-    prevBtn.style.visibility=cur===0?'hidden':'visible';
-    nextBtn.style.visibility=cur===pages.length-1?'hidden':'visible';
-    if(a.classList.contains('finale')) burst();
+  function onPage(i){
+    counter.textContent='Pg '+(i+1)+' / '+pages.length;
+    prevBtn.style.visibility=i<=0?'hidden':'visible';
+    nextBtn.style.visibility=i>=pages.length-1?'hidden':'visible';
+    /* fire confetti when the finale spread comes into view */
+    if((pages[i]&&pages[i].classList.contains('finale'))||(pages[i+1]&&pages[i+1].classList.contains('finale'))) burst();
   }
-  function go(d){
-    if(animating) return;
-    const n=cur+d; if(n<0||n>=pages.length) return;
-    const flip = d>0 ? cur : n;   /* forward: the page you're leaving turns; back: the page returning turns */
-    animating=true;
-    cur=n;
-    layout(flip);
-    activateCurrent();
-    setTimeout(()=>{animating=false;layout(null);},820);
+
+  /* size each page so the two-page spread (ratio 10:8) fits the viewport exactly —
+     no slack means the pages stay glued to the centre spine through the flip */
+  function pageDims(){
+    const maxW=window.innerWidth*0.94, maxH=window.innerHeight*0.9;
+    const h=Math.min(maxH, maxW/1.25);   /* spread width = 1.25 * page height */
+    return {w:Math.round(h*0.625), h:Math.round(h)};
   }
-  prevBtn.addEventListener('click',()=>go(-1));
-  nextBtn.addEventListener('click',()=>go(1));
-  addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){go(1);}else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(-1);}});
-  let tx=null;
-  addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;},{passive:true});
-  addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){go(dx<0?1:-1);}tx=null;},{passive:true});
-  layout(null);
-  activateCurrent();
+  const d0=pageDims();
+  const pageFlip=new St.PageFlip(stage,{
+    width:d0.w,height:d0.h,size:'fixed',
+    drawShadow:true,maxShadowOpacity:0.5,flippingTime:800,
+    showCover:true,usePortrait:false,mobileScrollSupport:false,
+    clickEventForward:true,useMouseEvents:true,swipeDistance:30
+  });
+  stage.classList.add('ready');           /* reveal all pages now that the book owns layout */
+  pageFlip.loadFromHTML(pages);
+  pages.forEach(p=>p.classList.add('active'));  /* both pages of a spread show their content */
+  pages.forEach(runCounts);                     /* count-ups run once */
+  pageFlip.on('flip',e=>onPage(e.data));
+  onPage(0);
+
+  prevBtn.addEventListener('click',e=>{e.stopPropagation();pageFlip.flipPrev();});
+  nextBtn.addEventListener('click',e=>{e.stopPropagation();pageFlip.flipNext();});
+  addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){pageFlip.flipNext();}else if(e.key==='ArrowLeft'||e.key==='PageUp'){pageFlip.flipPrev();}});
+  addEventListener('resize',()=>{const d=pageDims();try{pageFlip.updateSetting?pageFlip.updateSetting({width:d.w,height:d.h}):pageFlip.update();}catch(_){}});
 
   /* confetti */
   const cvs=document.getElementById('confetti'),cx=cvs.getContext('2d');
