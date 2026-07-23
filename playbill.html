@@ -146,6 +146,14 @@
   .photo .fb .cp{font-family:'Playfair Display';font-weight:700;font-size:13px}
   .photo .fb .fl{font-size:11px;color:var(--muted);margin-top:4px;font-family:monospace}
   .figcap{font-style:italic;color:var(--muted);font-size:13px;margin-top:6px;text-align:center}
+  /* gallery */
+  .gallery .content{justify-content:flex-start;padding:10px 0;min-height:0;overflow:hidden}
+  .gallery .sect-title{margin:0 0 10px;flex:0 0 auto}
+  .gallery .grid{flex:1 1 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:11px;min-height:0}
+  .gallery .cellp{display:flex;flex-direction:column;min-height:0}
+  .gallery .cellp .photo{flex:1 1 auto;min-height:0;border-width:5px}
+  .gallery .cellp .photo img{width:100%;height:100%;object-fit:cover}
+  .gallery .cellp .figcap{font-size:10.5px;margin-top:3px;line-height:1.2}
 
   /* nikki */
   .nikki-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
@@ -159,6 +167,19 @@
   .rave .src{font-family:'Playfair Display';font-weight:700;font-size:13px;margin-top:10px}
   .rave .src span{font-style:italic;font-weight:400;color:var(--muted)}
   .rave.add{border-style:dashed;text-align:center;color:var(--muted);font-family:'Playfair Display'}
+  .reviews .content{justify-content:center;gap:12px;padding:12px 0}
+  .reviews .sect-title{margin:0 0 4px;flex:0 0 auto;text-align:center}
+  .reviews .rave{margin:0;padding:13px 16px}
+  .reviews .rave .qt{font-size:13.5px;line-height:1.42}
+  .reviews .rave .src{margin-top:8px;text-align:right}
+  .reviews.long .content{justify-content:center}
+  .reviews.long .rave{border:none;padding:0}
+  .reviews.long .rave .qt{font-size:13px;line-height:1.5}
+  .reviews.xlong .rave .qt{font-size:11.7px;line-height:1.45}
+  .reviews.packed .content{gap:9px}
+  .reviews.packed .rave{padding:10px 14px}
+  .reviews.packed .rave .qt{font-size:11.8px;line-height:1.35}
+  .reviews.packed .stars{font-size:12px;margin-bottom:3px}
 
   /* sponsor */
   .ad{border:2px solid var(--ink);padding:30px;text-align:center}
@@ -345,32 +366,155 @@
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>SPECIAL GUEST</span></div>
     </section>
 
-    <!-- PAGE 7 · STILLS -->
-    <section class="page">
+    <!-- GALLERY 1 (title) -->
+    <section class="page gallery">
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
       <div class="content">
-        <h2 class="sect-title reveal" style="margin-bottom:22px">From the archives</h2>
-        <div class="reveal d1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px">
-          <div><div class="photo"><img src="images/kat-child.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">⭐</div><div class="cp">A young star</div><div class="fl">images/kat-child.jpg</div></div></div><div class="figcap">Where it all began.</div></div>
-          <div><div class="photo"><img src="images/kat-panel.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🎤</div><div class="cp">Mid-monologue</div><div class="fl">images/kat-panel.jpg</div></div></div><div class="figcap">The star, on the panel.</div></div>
-          <div><div class="photo"><img src="images/kat-hat.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🧢</div><div class="cp">The bucket hat</div><div class="fl">images/kat-hat.jpg</div></div></div><div class="figcap">Costume design: iconic.</div></div>
-          <div><div class="photo"><img src="images/team-dinner.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fb" style="display:none"><div class="ic">🍽️</div><div class="cp">Cast dinner</div><div class="fl">images/team-dinner.jpg</div></div></div><div class="figcap">The company, after the show.</div></div>
+        <h2 class="sect-title reveal">From the archives</h2>
+        <div class="grid reveal d1">
+          <div class="cellp"><div class="photo"><img src="images/kat-child.jpg" alt=""></div><div class="figcap">Where it all began</div></div>
+          <div class="cellp"><div class="photo"><img src="images/kat-panel.jpg" alt=""></div><div class="figcap">On the panel</div></div>
+          <div class="cellp"><div class="photo"><img src="images/kat-stage-researchweek.jpg" alt=""></div><div class="figcap">On the mainstage</div></div>
+          <div class="cellp"><div class="photo"><img src="images/kat-hosting.jpg" alt=""></div><div class="figcap">Hosting Research Week</div></div>
+          <div class="cellp"><div class="photo"><img src="images/kat-candid.jpg" alt=""></div><div class="figcap">In her element</div></div>
+          <div class="cellp"><div class="photo"><img src="images/kat-hat.jpg" alt=""></div><div class="figcap">The bucket hat</div></div>
         </div>
       </div>
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
     </section>
 
-    <!-- PAGE 8 · CRITICS -->
-    <section class="page">
+    <!-- GALLERY 2 -->
+    <section class="page gallery">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
+      <div class="content">
+        <div class="grid reveal">
+          <div class="cellp"><div class="photo"><img src="images/kat-sting.jpg" alt=""></div><div class="figcap">With Sting &amp; Peter Gabriel</div></div>
+          <div class="cellp"><div class="photo"><img src="images/kat-imwithher.jpg" alt=""></div><div class="figcap">I'm with her</div></div>
+          <div class="cellp"><div class="photo"><img src="images/lyftads-adweek.jpg" alt=""></div><div class="figcap">Advertising Week, NYC</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-welcome-alex.jpg" alt=""></div><div class="figcap">Welcome, Alex</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-welcome-dan.jpg" alt=""></div><div class="figcap">Welcome, Dan</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-welcome-emma.jpg" alt=""></div><div class="figcap">Welcome, Emma</div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
+    </section>
+
+    <!-- GALLERY 3 -->
+    <section class="page gallery">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
+      <div class="content">
+        <div class="grid reveal">
+          <div class="cellp"><div class="photo"><img src="images/team-tea-party.jpg" alt=""></div><div class="figcap">Afternoon tea</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-halloween.jpg" alt=""></div><div class="figcap">Halloween</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-holiday.jpg" alt=""></div><div class="figcap">Holiday party</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-volunteer.jpg" alt=""></div><div class="figcap">Volunteer day</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-wave.jpg" alt=""></div><div class="figcap">Team wave</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-offsite.jpg" alt=""></div><div class="figcap">Team offsite</div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
+    </section>
+
+    <!-- GALLERY 4 -->
+    <section class="page gallery">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
+      <div class="content">
+        <div class="grid reveal">
+          <div class="cellp"><div class="photo"><img src="images/team-group-lyft.jpg" alt=""></div><div class="figcap">The whole crew</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-waterfront.jpg" alt=""></div><div class="figcap">By the water</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-goldengate.jpg" alt=""></div><div class="figcap">Golden Gate cruise</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-rooftop.jpg" alt=""></div><div class="figcap">Rooftop hang</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-rooftop-dusk.jpg" alt=""></div><div class="figcap">Rooftop at dusk</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-restaurant-selfie.jpg" alt=""></div><div class="figcap">Dinner selfie</div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
+    </section>
+
+    <!-- GALLERY 5 -->
+    <section class="page gallery">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
+      <div class="content">
+        <div class="grid reveal">
+          <div class="cellp"><div class="photo"><img src="images/team-dinner.jpg" alt=""></div><div class="figcap">Team dinner</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-dinner2.jpg" alt=""></div><div class="figcap">Another dinner</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-researchweek-group.jpg" alt=""></div><div class="figcap">Research Week</div></div>
+          <div class="cellp"><div class="photo"><img src="images/team-researchweek-selfie.jpg" alt=""></div><div class="figcap">Research Week selfie</div></div>
+          <div class="cellp" style="grid-column:1 / -1"><div class="photo"><img src="images/team-event.jpg" alt=""></div><div class="figcap">Conference days</div></div>
+        </div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
+    </section>
+
+    <!-- CRITICS · page 1 (title) -->
+    <section class="page reviews packed">
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
       <div class="content">
-        <h2 class="sect-title reveal" style="margin-bottom:20px">The reviews are in</h2>
-        <div class="reveal d1">
-          <div class="rave"><div class="stars">★★★★★</div><div class="qt">"[Drop a real memory or quote here, heartfelt or hilarious.]"</div><div class="src">A Teammate <span>· front row</span></div></div>
-          <div class="rave"><div class="stars">★★★★★</div><div class="qt">"[Kat taught me…]"</div><div class="src">A Direct Report <span>· the ensemble</span></div></div>
-          <div class="rave"><div class="stars">★★★★★</div><div class="qt">"[Ten years and she still…]"</div><div class="src">Jen <span>· the producer</span></div></div>
-          <div class="rave add">＋ Add your review of Kat</div>
-        </div>
+        <h2 class="sect-title reveal">The reviews are in</h2>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">I don't say this enough, but you're the best mentor and manager I could have asked for. You've pushed me outside my comfort zone in ways that felt uncomfortable at the time but ended up being exactly what I needed, both for my career and for who I am as a person. Thank you for believing in me, for the tough questions, and for always making growth feel possible instead of scary. Here's to the next 10 years!</div><div class="src">— Spruha</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Kat, it's a delight to get to work with you - I see how much your team looks up to you and always appreciate your clear direction and ability to keep things calm and fun. I particularly appreciated the advice you gave post-career day chat! Hope we have more chances to see each other! Congrats on TEN!!!</div><div class="src">— Jean</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">The big 1 - 0! Thank you for hiring me all those years ago, supporting my career growth, and being a huge reason why I'm still here. I hope you take a moment to reflect on the enormous impact you've had on the people who have come through the door at Lyft, not just researchers, but everyone regardless of discipline who has had the opportunity to work with you holds you in high regard. Bravo on this epic run, Dr. Murray.</div><div class="src">— Rafae</div></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- CRITICS · page 2 -->
+    <section class="page reviews packed">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Happy 10 Lyftiversary, Kat!! While I haven't been on the team for that long yet, I've seen firsthand how your leadership and ability to connect with people cement belonging and fulfillment in our team. You and the team culture you've helped foster made me feel so welcome and excited to join Lyft Ads. I'm so grateful for your mentorship and support in these past few months - we are so lucky to have such an awesome leader. Congrats on 10, and excited for many more!</div><div class="src">— Sonia</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Kat, wow the big 10!! Thank you for your steadfast leadership on our Research team through all the ups and downs. We are so incredibly lucky to have your deep empathy, wit, and badass mentorship to lean on as we navigate our own growth and careers. Hope you take some time to reflect on this incredible milestone and all that you achieved to get here. Thank you for everything that you do for us, each day, in ways big and small.</div><div class="src">— Karuna</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Thanks for being a fantastic role model for how to be a thoughtful leader. You always have time, you share real parts of your life and you are always ready to support. On top of all that you're an incredible professional AND a hell of a good time at a happy hour. Thank you again and cheers to being a unicorn!</div><div class="src">— Roman</div></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- CRITICS · page 3 (long) -->
+    <section class="page reviews long xlong">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <div class="rave reveal"><div class="stars" style="text-align:center;margin-bottom:10px">★★★★★</div><div class="qt">Oh, Kat … we first worked together way back in 2018 when I was an ops associate on the DC local team wanting to better understand riders in transportation deserts. You took me seriously, your excitement was validating, and you drove a project you didn't ask for (that wasn't attached to any OKR or sexy launch or legitimate request flow) from starting line to finish line. A few years later, the insurrection happened, and the first person to reach out to me to make sure I was okay was you. A few years after that, I was re-orged under you, and you (a senior leader) taught me about the most beautiful thing: understanding and communicating the limits of one's social bandwidth. Your openness and vulnerability and just … humanity … have impacted my entire experience at Lyft, and I know that I'm far from alone in that. Any time your name comes up, I hear stories about meaningful conversations you've had that changed peoples' careers or helped them get through the apocalypse of the quarter / decade / century. You aren't full of shit, and that is worth its weight in gold.</div><div class="src" style="text-align:center">— Ryann</div></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- CRITICS · page 4 -->
+    <section class="page reviews packed">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">10! Kat, I can't imagine my time at Lyft without you. You've been a constant source of support for me since day one. I can't thank you enough for all the time you've spent chatting with me, allowing me to learn from you, always being a reliable brainstorming partner, and of course, all the laughter. You've been so important to me, but I know that you've also been essential to the research team and so many others. We are so lucky to have you. I am so lucky to know you. To quote one of your favs, and I mean this without any Mary Poppins snark, you are "practically perfect in every way." Cheers to you. Thank you, thank you, thank you!</div><div class="src">— Alex</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">9 years! I'm equal parts impressed and questioning your sanity. But most of all, I'm thankful. You have been such a rock and trusted mentor to me throughout my time here, even long before I joined research. Thank you for being you, for all that you do, for your leadership, for your friendship. This place is truly better as a result of your presence.</div><div class="src">— SJCP</div></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- CRITICS · page 5 -->
+    <section class="page reviews packed">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Congratulations on a decade (plus that extra time as a contractor) at Lyft! We are so lucky to have had your leadership on the team for so long. You have played such an instrumental role in the careers of so many researchers at Lyft, mine included! I'm forever grateful for the way you have always made this band of researchers feel like a team and for making Lyft a place where showing up for work can be something to look forward to.</div><div class="src">— Jacob</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Just wanted to start off by saying, THANK YOU for being our leader Kat. It's amazing to see the impact that you have left on Lyft, even 10 years in now. Among many good reasons, you were a driving force in convincing me that I was joining a great team at Lyft when I joined last year. And everyday since I was hired, I reminded that choice was the right one because of the culture and warmth and belonging you bring to this team. It's unique, rare, and hard to come by. I'm grateful for you teaching us all how to be a compassionate leader because it simply has to come from the heart. Thank you, congratulations on 10, and cheers :)</div><div class="src">— Brandon Y</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Ten total years!! Kat!! That's so awesome!! You are such a kind, encouraging, empathetic presence on the team. Lyft is made so much better because of leaders like you, who truly take the time to cultivate belonging &amp; inclusion alongside craft rigor. You're not only a good leader, but also a good person, which makes such a big difference in team &amp; company culture. I am grateful for all the ways you've shown up to support me, and I look forward to continuing to work alongside you (or at least, adjacent to you!). Happy 10 years!!</div><div class="src">— ronnie</div></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- CRITICS · page 6 -->
+    <section class="page reviews packed">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Congratulations on a decade, Kat!! When I think of my time at Lyft and the people/things that make me happiest, you are by far one of the people at the top. My first manager at Lyft and I was your first EBP. We figured out a lot together and I couldn't have asked for a better person to learn from. So much of how I approach my work, how I show up for myself and for others, trace back to those early days with you. This is not just a lyftiversary note because you were never just a "work person" to me. You've been there for real moments and somewhere along the way "my first lyft manager" turned into someone I genuinely count on as a friend (and btw give Nikki a scratch for me! hehe). Lyft is so lucky to have had you for a decade. We are all lucky for all that you pour into us!!! Xx,</div><div class="src">— Ari &amp; Chandler</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Congrats on 10 years at Lyft! Echoing what everyone has said, thank you for being an excellent leader and a genuine and kind person! Thank you for being an incredible example of what it means to be yourself and do your best. Additionally, thank you for helping make the Lyft culture/Lyft Research what it is today. I couldn't imagine it any other way so thank you for all you've built for us who've joined along the way. You are so appreciated! Looking forward to continuing working together and maybe doing a Pilates/Yoga class in the future!</div><div class="src">— Ari A.</div></div>
+      </div>
+      <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
+    </section>
+
+    <!-- CRITICS · page 7 -->
+    <section class="page reviews packed">
+      <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Critics rave</span></div>
+      <div class="content">
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">Kat! Where to even begin? You've been such a staple of my 4+ years at Lyft. As the Head of Research, you shaped the entire research culture at Lyft. The level of respect and buy-in for research at Lyft is truly unique, and you've been instrumental in developing and maintaining this. You're such an admirable and well-rounded leader. I'm immensely grateful to have you as my manager, and I realize how lucky I am to learn from you every day. You're authentic, transparent, and fully yourself. I appreciate how you speak up for mental health, give people permission to take time to think and reflect, and advocate for those who may not be able to advocate for themselves. Your genuine care for everyone on the team is palpable, and we're all more engaged, productive, and joyful because of it. Congrats on 10 years and here's to many many more!</div><div class="src">— Meghan W</div></div>
+        <div class="rave reveal"><div class="stars">★★★★★</div><div class="qt">I can't believe I've had the privilege of working with you and learning from a large part of your time here at Lyft! 9 years FTE and 1 year contracting, you are in the decade club now!! Thank you for continuing to coach me, despite no longer being my manager, helping to mold me into the researcher I am today! Whether it's showing me how to craft a research plan in my early stages of industry research, to navigating tough situations, or just having fun in an Orange Theory Class / Barre class, I feel very grateful to get to be / continue to be in your orbit! Thank you for being YOU, for always leading the research team, for being an excellent role model, and always willing to lend an ear. You've created a wonderful blueprint for many of us to aspire to and learn from! Cheers to you!</div><div class="src">— Sabrina</div></div>
       </div>
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
     </section>
