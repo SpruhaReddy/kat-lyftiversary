@@ -16,6 +16,7 @@
     --purple:#820076;
     --muted:#6b675e;
     --cream-line:#ddd6c6;
+    --omred:#C0392E;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'EB Garamond',Georgia,serif;color:var(--ink);background:#0d060b;-webkit-font-smoothing:antialiased;overflow:hidden}
@@ -29,6 +30,10 @@
   .stage.ready{overflow:visible}
   .page{background:var(--paper);border:2px solid var(--ink);
     display:flex;flex-direction:column;overflow:hidden;padding:clamp(18px,3.2vw,38px)}
+  /* ad slotted into a gallery grid as a cell (mixed among the photos) */
+  .gallery .cellp.adcell .photo{background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .gallery .cellp.adcell .photo img{width:100%;height:100%;object-fit:contain}
+  .gallery .cellp.adcell .figcap{color:var(--purple);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-style:normal}
   /* before init, only show the cover so pages don't stack in normal flow */
   .stage:not(.ready) .page:not(.cover){display:none}
   .page.--left{box-shadow:inset -4px 0 12px -6px rgba(0,0,0,.28)}
@@ -40,7 +45,14 @@
   .page.adpage img{position:absolute;top:0;height:100%;width:200%;max-width:none;object-fit:cover;display:block}
   .page.adpage.adleft img{left:0}       /* left page shows the left half */
   .page.adpage.adright img{right:0}     /* right page shows the right half */
+  .page.adpage.adfull img{width:100%;left:0;object-position:center}  /* single full-page ad */
   .page.adpage .ad-tag{position:absolute;top:10px;left:14px;font-family:'Playfair Display';font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.75);z-index:2}
+  /* small framed ad — matted on a page, sprinkled between sections */
+  .page.smallad{background:var(--paper);align-items:center;justify-content:center;text-align:center;container-type:size;padding:6cqh 9cqw}
+  .page.smallad .ad-label{font-family:'Playfair Display';font-weight:700;font-size:2.4cqh;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:2.6cqh}
+  .page.smallad .ad-frame{border:2px solid var(--ink);box-shadow:0 8px 26px rgba(0,0,0,.18);overflow:hidden;display:flex;background:#000;max-width:100%;max-height:74cqh}
+  .page.smallad .ad-frame img{max-width:100%;max-height:74cqh;width:auto;height:auto;object-fit:contain;display:block}
+  .page.smallad .ad-cap{font-family:'Playfair Display';font-style:italic;font-size:2.4cqh;color:var(--ink);margin-top:2.4cqh}
 
   .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:12px;margin-bottom:auto;flex-shrink:0}
   .runhead .wm{font-family:'Playfair Display';font-weight:900;font-size:16px;letter-spacing:.02em}
@@ -76,6 +88,43 @@
   .c-portrait img{width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.08);transform-origin:center center;display:block}
   .c-foot{background:var(--yellow);color:var(--ink);text-align:center;padding:14px;margin-top:auto;font-family:'Playfair Display';font-size:12px;letter-spacing:.14em;border-top:1.5px solid var(--ink)}
   .c-foot .dates{display:block;color:var(--ink);opacity:.7;letter-spacing:.24em;margin-top:4px}
+
+  /* cover option A — "Ten Years" ("Oh, Mary!" show-poster style); sized to the page via container units */
+  .page.cover.cover-omary{padding:0;align-items:stretch;container-type:size}
+  .cover-omary .content{padding:2.6cqh 7cqw 0;justify-content:flex-start;text-align:center;
+    background:radial-gradient(120% 85% at 50% 20%, #F8DC2E 0%, var(--yellow) 52%, #E7BE0C 100%)}
+  .cover-omary .om-head{border-bottom:2px solid var(--ink);padding-bottom:1cqh;margin-bottom:1.4cqh}
+  .cover-omary .om-wm{font-family:'Playfair Display';font-weight:900;font-size:7.6cqh;line-height:1;color:var(--ink);display:inline-block;position:relative}
+  .cover-omary .om-wm sup{font-size:.2em;font-weight:700;top:-1.7em;margin-left:.1em}
+  .cover-omary .om-theatre{font-family:'Playfair Display';font-weight:600;font-size:2.1cqh;letter-spacing:.28em;color:var(--ink);text-transform:uppercase;margin-top:.5cqh}
+  .cover-omary .om-tagline{font-family:'Playfair Display';font-style:italic;font-weight:700;color:var(--omred);
+    font-size:3.5cqh;line-height:1.02;margin-bottom:1.2cqh}
+  .cover-omary .om-portrait{width:32cqw;aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0 auto 1.1cqh;background:#fff}
+  .cover-omary .om-portrait img{width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.06);display:block}
+  .cover-omary .om-star{font-family:'Playfair Display';font-weight:900;color:var(--ink);font-size:6.2cqh;line-height:.9;letter-spacing:.01em}
+  .cover-omary .om-role{font-family:'Playfair Display';font-weight:900;color:var(--ink);font-size:3.4cqh;line-height:1.05;margin-top:.3cqh}
+  .cover-omary .om-role em,.cover-omary .om-in em{font-weight:400;font-style:italic;font-size:.72em}
+  .cover-omary .om-in{font-family:'Playfair Display';font-style:italic;color:var(--ink);font-size:2.7cqh;margin:.4cqh 0}
+  .cover-omary .om-title{font-family:'Playfair Display';font-weight:900;color:var(--omred);font-size:9.6cqh;line-height:.84;margin:.5cqh 0}
+  .cover-omary .om-credit{font-family:'Playfair Display';font-weight:700;color:var(--ink);font-size:2.2cqh;letter-spacing:.08em;margin-top:1.1cqh}
+  .cover-omary .om-credit.sm{font-weight:400;font-size:1.9cqh;margin-top:.3cqh;opacity:.85}
+  .cover-omary .om-credit em{font-style:italic}
+  .cover-omary .om-anniv{margin-top:auto;font-family:'Playfair Display';font-weight:700;color:var(--ink);
+    font-size:2.1cqh;letter-spacing:.1em;padding:1.6cqh 0;border-top:1.5px solid rgba(20,20,20,.32)}
+
+  /* cover option B — "Kats: The Jellicle Ball" (black + disco) */
+  .page.cover.cover-jellicle{padding:0;align-items:stretch;background:#000;container-type:size}
+  .cover-jellicle .content{padding:0;justify-content:flex-start;background:#000}
+  .cover-jellicle .jbanner{background:var(--yellow);text-align:center;padding:3cqh 4cqw 1.4cqh}
+  .cover-jellicle .jbanner .wm{font-family:'Playfair Display';font-weight:900;font-size:8.4cqh;line-height:1;color:var(--ink);display:inline-block;position:relative}
+  .cover-jellicle .jbanner .wm sup{font-size:.2em;font-weight:700;top:-1.7em;margin-left:.1em}
+  .cover-jellicle .jtheatre{font-family:'Playfair Display';font-weight:600;font-size:2.4cqh;letter-spacing:.28em;color:var(--ink);text-transform:uppercase;margin-top:.8cqh}
+  .cover-jellicle .jbody{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:2.4cqh 4cqw 0;text-align:center;min-height:0}
+  .cover-jellicle .jtitle{font-family:'Playfair Display';font-weight:900;color:var(--yellow);font-size:8cqh;line-height:.88;letter-spacing:.01em;text-transform:uppercase;position:relative;z-index:2;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+  .cover-jellicle .jtitle .jsub{display:inline-block;font-size:.82em;margin-top:.12em}
+  .cover-jellicle .jdisco{flex:1 1 auto;width:100%;display:flex;align-items:flex-start;justify-content:center;margin-top:-6cqh;position:relative;z-index:1;min-height:0}
+  .cover-jellicle .jdisco img{max-width:96%;max-height:100%;object-fit:contain;display:block}
+  .cover-jellicle .j-anniv{flex-shrink:0;font-family:'Playfair Display';font-weight:700;color:var(--yellow);font-size:2.4cqh;letter-spacing:.14em;text-align:center;padding:2cqh 0;border-top:1px solid rgba(246,211,17,.35)}
 
   .bulbs{display:flex;gap:13px;justify-content:center;margin:18px 0}
   .bulbs i{width:9px;height:9px;border-radius:50%;background:var(--yellow);border:1px solid var(--ink)}
@@ -147,9 +196,12 @@
   .photo .fb .fl{font-size:11px;color:var(--muted);margin-top:4px;font-family:monospace}
   .figcap{font-style:italic;color:var(--muted);font-size:13px;margin-top:6px;text-align:center}
   /* gallery */
-  .gallery .content{justify-content:flex-start;padding:10px 0;min-height:0;overflow:hidden}
-  .gallery .sect-title{margin:0 0 10px;flex:0 0 auto}
-  .gallery .grid{flex:1 1 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:11px;min-height:0}
+  .page.gallery{container-type:size}
+  .gallery .content{flex:1 1 auto;justify-content:flex-start;padding:10px 0;min-height:0;overflow:hidden}
+  .gallery .sect-title{margin:0 0 8px;flex:0 0 auto}
+  /* fixed grid height (container units) so rows resolve even though StPageFlip makes the page display:block */
+  .gallery .grid{height:72cqh;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:11px;min-height:0}
+  .gallery.gtitle .grid{height:64cqh}
   .gallery .cellp{display:flex;flex-direction:column;min-height:0}
   .gallery .cellp .photo{flex:1 1 auto;min-height:0;border-width:5px}
   .gallery .cellp .photo img{width:100%;height:100%;object-fit:cover}
@@ -210,6 +262,15 @@
 
   .switcher{position:fixed;top:14px;right:14px;z-index:65;background:var(--paper);border:1.5px solid var(--ink);font-family:'Playfair Display';font-weight:700;font-size:12px;padding:7px 12px;text-decoration:none;color:var(--ink)}
 
+  /* cover picker (left of the closed book) */
+  #cover-switch{position:fixed;left:clamp(16px,4vw,48px);top:50%;transform:translateY(-50%);z-index:66;display:flex;flex-direction:column;gap:10px;max-width:min(240px,26vw);transition:opacity .35s ease}
+  #cover-switch.hidden{opacity:0;pointer-events:none}
+  #cover-switch .cs-label{font-family:'Playfair Display';font-style:italic;color:#e7c8de;font-size:14px;letter-spacing:.06em;margin-bottom:2px}
+  #cover-switch .cs-opt{font-family:'Playfair Display';font-weight:700;font-size:14px;letter-spacing:.03em;text-align:left;background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:11px 15px;cursor:pointer;box-shadow:4px 4px 0 var(--purple);transition:transform .12s,box-shadow .12s}
+  #cover-switch .cs-opt:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--purple)}
+  #cover-switch .cs-opt.active{background:var(--yellow);box-shadow:4px 4px 0 var(--ink)}
+  @media(max-width:720px){#cover-switch{display:none}}
+
   #music-toggle{position:fixed;bottom:16px;left:16px;z-index:65;display:flex;align-items:center;gap:9px;background:var(--yellow);color:var(--ink);padding:11px 16px;border:2px solid var(--ink);font-family:'Playfair Display';font-weight:700;font-size:13px;box-shadow:4px 4px 0 var(--purple);cursor:pointer;max-width:70vw}
   #music-toggle:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--purple)}
   #music-toggle.playing .mt-icon{animation:spin 3s linear infinite}
@@ -222,26 +283,41 @@
 <body>
 <canvas id="confetti"></canvas>
 <a href="index.html" class="switcher">↩ Wrapped version</a>
+
+<!-- ===== randomized cover options — one is injected as page 1 on load ===== -->
+<template id="cover-pool">
+  <!-- Option A · Ten Years ("Oh, Mary!" poster style) -->
+  <section class="page cover cover-omary" data-label="Ten Years">
+    <div class="content">
+      <div class="om-head"><div class="om-wm">PLAYBILL<sup>®</sup></div><div class="om-theatre">THE LYFT THEATRE</div></div>
+      <div class="om-tagline">The Greatest Run of a Generation!</div>
+      <div class="om-portrait"><img src="images/kat-portrait.png" alt="Kat Murray" /></div>
+      <div class="om-star">KAT MURRAY</div>
+      <div class="om-role"><em>is</em> EMPLOYEE #130</div>
+      <div class="om-in"><em>in</em></div>
+      <div class="om-title">“TEN YEARS”</div>
+      <div class="om-credit">A LYFT STORY BY KAT MURRAY</div>
+      <div class="om-credit sm"><em>with</em> NIKKI <em>as</em> “THE CAT”</div>
+      <div class="om-anniv">10TH ANNIVERSARY&nbsp;&nbsp;·&nbsp;&nbsp;2016 — 2026&nbsp;&nbsp;·&nbsp;&nbsp;STILL SOLD OUT</div>
+    </div>
+  </section>
+  <!-- Option B · Kats: The Jellicle Ball (disco) -->
+  <section class="page cover cover-jellicle" data-label="Jellicle Ball">
+    <div class="content">
+      <div class="jbanner"><div class="wm">PLAYBILL<sup>®</sup></div><div class="jtheatre">THE LYFT THEATRE</div></div>
+      <div class="jbody">
+        <div class="jtitle">KATS:<br><span class="jsub">THE JELLICLE BALL</span></div>
+        <div class="jdisco"><img src="images/kat-disco.png" alt="Kat, in mirror-ball" /></div>
+      </div>
+      <div class="j-anniv">10TH ANNIVERSARY&nbsp;&nbsp;·&nbsp;&nbsp;2016 — 2026</div>
+    </div>
+  </section>
+</template>
+
 <div class="theater">
   <div class="stage" id="stage">
 
-    <!-- PAGE 1 · COVER -->
-    <section class="page cover">
-      <div class="content">
-        <div class="cbanner"><div class="wm">PLAYBILL<sup>®</sup></div></div>
-        <div class="cbody">
-          <div class="c-theatre">THE LYFT THEATRE</div>
-          <div class="c-rule"></div>
-          <div class="c-portrait"><img src="images/kat-portrait.png" alt="Kat Murray" /></div>
-          <div class="c-title">TEN<br>YEARS</div>
-          <div class="c-story">A Lyft Story</div>
-          <div class="c-star-lbl">STARRING</div>
-          <div class="c-star">KAT MURRAY</div>
-          <div class="c-with">with NIKKI as “The Cat”</div>
-        </div>
-        <div class="c-foot">★&nbsp;&nbsp;10TH ANNIVERSARY PRODUCTION&nbsp;&nbsp;★<span class="dates">2016 &nbsp;·&nbsp; 2026</span></div>
-      </div>
-    </section>
+    <!-- COVER · one of #cover-pool's options is injected here at runtime (randomized) -->
 
     <!-- PAGE 2 · ABOUT -->
     <section class="page">
@@ -367,17 +443,16 @@
     </section>
 
     <!-- GALLERY 1 (title) -->
-    <section class="page gallery">
+    <section class="page gallery gtitle">
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
       <div class="content">
         <h2 class="sect-title reveal">From the archives</h2>
         <div class="grid reveal d1">
+          <div class="cellp adcell" style="grid-column:1 / -1"><div class="photo"><img src="images/ticketmaster-ad.jpg" alt="Ticketmaster — ride Lyft, get 10% off tickets"></div><div class="figcap">Advertisement · Ticketmaster × Lyft</div></div>
           <div class="cellp"><div class="photo"><img src="images/kat-child.jpg" alt=""></div><div class="figcap">Where it all began</div></div>
           <div class="cellp"><div class="photo"><img src="images/kat-panel.jpg" alt=""></div><div class="figcap">On the panel</div></div>
           <div class="cellp"><div class="photo"><img src="images/kat-stage-researchweek.jpg" alt=""></div><div class="figcap">On the mainstage</div></div>
           <div class="cellp"><div class="photo"><img src="images/kat-hosting.jpg" alt=""></div><div class="figcap">Hosting Research Week</div></div>
-          <div class="cellp"><div class="photo"><img src="images/kat-candid.jpg" alt=""></div><div class="figcap">In her element</div></div>
-          <div class="cellp"><div class="photo"><img src="images/kat-hat.jpg" alt=""></div><div class="figcap">The bucket hat</div></div>
         </div>
       </div>
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
@@ -388,12 +463,12 @@
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
       <div class="content">
         <div class="grid reveal">
+          <div class="cellp adcell"><div class="photo"><img src="images/birdwatching-ad.jpg" alt="Kat's Bird Watching Tours"></div><div class="figcap">Advertisement · Kat's Birders</div></div>
           <div class="cellp"><div class="photo"><img src="images/kat-sting.jpg" alt=""></div><div class="figcap">With Sting &amp; Peter Gabriel</div></div>
           <div class="cellp"><div class="photo"><img src="images/kat-imwithher.jpg" alt=""></div><div class="figcap">I'm with her</div></div>
           <div class="cellp"><div class="photo"><img src="images/lyftads-adweek.jpg" alt=""></div><div class="figcap">Advertising Week, NYC</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-welcome-alex.jpg" alt=""></div><div class="figcap">Welcome, Alex</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-welcome-dan.jpg" alt=""></div><div class="figcap">Welcome, Dan</div></div>
-          <div class="cellp"><div class="photo"><img src="images/team-welcome-emma.jpg" alt=""></div><div class="figcap">Welcome, Emma</div></div>
         </div>
       </div>
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
@@ -404,12 +479,12 @@
       <div class="runhead"><span class="wm">PLAYBILL</span><span class="kick">Production stills</span></div>
       <div class="content">
         <div class="grid reveal">
+          <div class="cellp adcell"><div class="photo"><img src="images/orangetheory-ad.jpg" alt="Orangetheory — 1 week free, code Kat-Lyft-10"></div><div class="figcap">Advertisement · Orangetheory</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-tea-party.jpg" alt=""></div><div class="figcap">Afternoon tea</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-halloween.jpg" alt=""></div><div class="figcap">Halloween</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-holiday.jpg" alt=""></div><div class="figcap">Holiday party</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-volunteer.jpg" alt=""></div><div class="figcap">Volunteer day</div></div>
           <div class="cellp"><div class="photo"><img src="images/team-wave.jpg" alt=""></div><div class="figcap">Team wave</div></div>
-          <div class="cellp"><div class="photo"><img src="images/team-offsite.jpg" alt=""></div><div class="figcap">Team offsite</div></div>
         </div>
       </div>
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
@@ -429,6 +504,15 @@
         </div>
       </div>
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE ARCHIVES</span></div>
+    </section>
+
+    <!-- CENTERFOLD · Lyft Ads (full double-page spread) -->
+    <section class="page adpage adleft">
+      <img src="images/lyft-ad.png" alt="Lyft Ads — featuring Kat" />
+      <span class="ad-tag">Advertisement</span>
+    </section>
+    <section class="page adpage adright">
+      <img src="images/lyft-ad.png" alt="" aria-hidden="true" />
     </section>
 
     <!-- GALLERY 5 -->
@@ -519,14 +603,6 @@
       <div class="runfoot"><span>THE LYFT THEATRE</span><span>THE REVIEWS</span></div>
     </section>
 
-    <!-- SPONSOR (full double-page glossy ad — left + right halves) -->
-    <section class="page adpage adleft">
-      <img src="images/lyft-ad.png" alt="Lyft Ads — featuring Kat" />
-      <span class="ad-tag">Advertisement</span>
-    </section>
-    <section class="page adpage adright">
-      <img src="images/lyft-ad.png" alt="" aria-hidden="true" />
-    </section>
 
     <!-- PAGE 10 · CURTAIN CALL -->
     <section class="page finale">
@@ -549,6 +625,9 @@
 <div id="counter"></div>
 <div class="hint">use ‹ › · arrow keys · or swipe</div>
 
+<!-- cover picker — shown on the closed book (left of the cover) -->
+<div id="cover-switch" class="hidden" aria-label="Choose a cover"><div class="cs-label">Pick a cover</div></div>
+
 <button id="music-toggle" aria-label="Play the overture"><span class="mt-icon">♪</span><span class="mt-text">Overture: press to play Kat's theme</span></button>
 <div id="yt-holder" aria-hidden="true"><div id="yt-player"></div></div>
 
@@ -568,6 +647,20 @@
 
   /* realistic soft page-fold via StPageFlip — https://nodlik.github.io/StPageFlip/
      click/drag the right edge to advance, the left edge to go back */
+  /* cover options — pick a random (or ?cover=…-forced) one as page 1; switchable while the book is closed */
+  const coverPool=document.getElementById('cover-pool');
+  const coverOpts=coverPool?[...coverPool.content.querySelectorAll('.cover')]:[];
+  let coverIdx=0;
+  if(coverOpts.length){
+    const q=new URLSearchParams(location.search).get('cover');
+    coverIdx=Math.floor(Math.random()*coverOpts.length);
+    if(q!==null){
+      if(/^\d+$/.test(q)) coverIdx=Math.min(coverOpts.length-1,parseInt(q,10));
+      else{ const m=coverOpts.findIndex(o=>o.className.includes(q)); if(m>=0) coverIdx=m; }
+    }
+    document.getElementById('stage').prepend(coverOpts[coverIdx].cloneNode(true));
+  }
+
   const pages=[...document.querySelectorAll('.page')];
   const stage=document.getElementById('stage');
   const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next'),counter=document.getElementById('counter');
@@ -576,12 +669,25 @@
     if(!p) return;
     p.querySelectorAll('.count:not([data-done])').forEach(el=>{el.setAttribute('data-done','1');animateCount(el);});
   }
+  const coverSwitch=document.getElementById('cover-switch');
   function onPage(i){
     counter.textContent='Pg '+(i+1)+' / '+pages.length;
     prevBtn.style.visibility=i<=0?'hidden':'visible';
     nextBtn.style.visibility=i>=pages.length-1?'hidden':'visible';
+    /* cover picker only while the book is closed on the cover */
+    if(coverSwitch) coverSwitch.classList.toggle('hidden', i!==0);
     /* fire confetti when the finale spread comes into view */
     if((pages[i]&&pages[i].classList.contains('finale'))||(pages[i+1]&&pages[i+1].classList.contains('finale'))) burst();
+  }
+  /* swap the closed cover (page 1) to another option, live */
+  function applyCover(i){
+    if(i<0||i>=coverOpts.length||!pages[0]) return;
+    const chosen=coverOpts[i].cloneNode(true), cp=pages[0];
+    [...cp.classList].forEach(c=>{if(c.indexOf('cover-')===0) cp.classList.remove(c);});
+    [...chosen.classList].forEach(c=>{if(c.indexOf('cover-')===0) cp.classList.add(c);});
+    cp.innerHTML=chosen.innerHTML;
+    coverIdx=i;
+    if(coverSwitch) [...coverSwitch.querySelectorAll('.cs-opt')].forEach((b,bi)=>b.classList.toggle('active',bi===i));
   }
 
   /* size each page so the two-page spread (ratio 10:8) fits the viewport exactly —
@@ -604,6 +710,18 @@
   pages.forEach(runCounts);                     /* count-ups run once */
   pageFlip.on('flip',e=>onPage(e.data));
   onPage(0);
+
+  /* build the cover picker from the pool */
+  if(coverSwitch && coverOpts.length>1){
+    coverOpts.forEach((o,i)=>{
+      const b=document.createElement('button');
+      b.className='cs-opt'+(i===coverIdx?' active':'');
+      b.textContent=o.dataset.label||('Cover '+(i+1));
+      b.addEventListener('click',e=>{e.stopPropagation();applyCover(i);});
+      coverSwitch.appendChild(b);
+    });
+    coverSwitch.classList.remove('hidden');
+  }
 
   prevBtn.addEventListener('click',e=>{e.stopPropagation();pageFlip.flipPrev();});
   nextBtn.addEventListener('click',e=>{e.stopPropagation();pageFlip.flipNext();});
