@@ -28,8 +28,8 @@
   /* StPageFlip book — realistic soft paper fold, open two-page spread */
   .stage{position:relative;overflow:hidden}
   .stage.ready{overflow:visible}
-  .page{background:var(--paper);border:2px solid var(--ink);
-    display:flex;flex-direction:column;overflow:hidden;padding:clamp(18px,3.2vw,38px)}
+  .page{background:var(--paper);border:2px solid var(--ink);container-type:size;
+    display:flex;flex-direction:column;overflow:hidden;padding:clamp(14px,4cqh,38px)}
   /* ad slotted into a gallery grid as a cell (mixed among the photos) */
   .gallery .cellp.adcell .photo{background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
   .gallery .cellp.adcell .photo img{width:100%;height:100%;object-fit:contain}
@@ -54,20 +54,20 @@
   .page.smallad .ad-frame img{max-width:100%;max-height:74cqh;width:auto;height:auto;object-fit:contain;display:block}
   .page.smallad .ad-cap{font-family:'Playfair Display';font-style:italic;font-size:2.4cqh;color:var(--ink);margin-top:2.4cqh}
 
-  .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:12px;margin-bottom:auto;flex-shrink:0}
-  .runhead .wm{font-family:'Playfair Display';font-weight:900;font-size:16px;letter-spacing:.02em}
-  .kick{background:var(--yellow);color:var(--ink);font-family:'Playfair Display';font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--ink)}
-  .runfoot{border-top:1.5px solid var(--ink);padding-top:10px;margin-top:auto;flex-shrink:0;display:flex;justify-content:space-between;font-family:'Playfair Display';font-size:11px;letter-spacing:.16em;color:var(--muted)}
+  .runhead{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--ink);padding-bottom:1.5cqh;margin-bottom:auto;flex-shrink:0}
+  .runhead .wm{font-family:'Playfair Display';font-weight:900;font-size:2.1cqh;letter-spacing:.02em}
+  .kick{background:var(--yellow);color:var(--ink);font-family:'Playfair Display';font-weight:700;font-size:1.5cqh;letter-spacing:.18em;text-transform:uppercase;padding:.6cqh 1.6cqw;border:1.5px solid var(--ink)}
+  .runfoot{border-top:1.5px solid var(--ink);padding-top:1.3cqh;margin-top:auto;flex-shrink:0;display:flex;justify-content:space-between;font-size:1.5cqh;font-family:'Playfair Display';letter-spacing:.16em;color:var(--muted)}
 
-  .content{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;padding:26px 0}
+  .content{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;padding:3.2cqh 0}
 
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease .1s,transform .6s ease .1s}
   .page.active .reveal{opacity:1;transform:none}
   .page.active .d1{transition-delay:.18s}.page.active .d2{transition-delay:.28s}.page.active .d3{transition-delay:.38s}
 
-  .sect-title{font-family:'Playfair Display';font-weight:900;font-size:clamp(28px,5.5vw,46px);line-height:1.04;margin:14px 0 6px}
-  .sect-sub{font-style:italic;color:var(--muted);font-size:17px;margin-bottom:26px}
-  .ph-note{font-family:'Playfair Display';font-size:11px;color:var(--purple);font-weight:700}
+  .sect-title{font-family:'Playfair Display';font-weight:900;font-size:5.6cqh;line-height:1.04;margin:1.8cqh 0 .8cqh}
+  .sect-sub{font-style:italic;color:var(--muted);font-size:2.1cqh;margin-bottom:3.2cqh}
+  .ph-note{font-family:'Playfair Display';font-size:1.4cqh;color:var(--purple);font-weight:700}
 
   /* cover page — classic all-yellow Playbill */
   .page.cover{padding:0;align-items:stretch;background:var(--yellow)}
@@ -133,50 +133,50 @@
 
   /* stat table */
   .num-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:2px solid var(--ink)}
-  .cell{padding:22px 16px;border-right:1px solid var(--cream-line);border-bottom:1px solid var(--cream-line);text-align:center}
-  .cell .big{font-family:'Playfair Display';font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1}
-  .cell .cap{font-style:italic;color:var(--muted);margin-top:6px;font-size:14px}
-  .cell .pn{font-family:'Playfair Display';font-size:10px;color:var(--purple);font-weight:700;margin-top:4px}
+  .cell{padding:2.6cqh 2cqw;border-right:1px solid var(--cream-line);border-bottom:1px solid var(--cream-line);text-align:center}
+  .cell .big{font-family:'Playfair Display';font-weight:900;font-size:6cqh;line-height:1}
+  .cell .cap{font-style:italic;color:var(--muted);margin-top:.8cqh;font-size:1.75cqh}
+  .cell .pn{font-family:'Playfair Display';font-size:1.3cqh;color:var(--purple);font-weight:700;margin-top:.5cqh}
 
   /* acts listing */
-  .act{display:flex;align-items:baseline;gap:14px;padding:15px 2px;border-bottom:1px solid var(--cream-line)}
+  .act{display:flex;align-items:baseline;gap:1.8cqw;padding:1.9cqh 2px;border-bottom:1px solid var(--cream-line)}
   .act:first-child{border-top:2px solid var(--ink)}
   .act:last-child{border-bottom:2px solid var(--ink)}
-  .act .num{font-family:'Playfair Display';font-weight:900;font-size:19px;color:var(--purple);min-width:70px}
-  .act .t{font-family:'Playfair Display';font-weight:700;font-size:18px}
-  .act .d{color:var(--muted);font-size:16px;margin-top:2px}
+  .act .num{font-family:'Playfair Display';font-weight:900;font-size:2.4cqh;color:var(--purple);min-width:9cqw}
+  .act .t{font-family:'Playfair Display';font-weight:700;font-size:2.25cqh}
+  .act .d{color:var(--muted);font-size:2cqh;margin-top:.25cqh}
   .act .d em{color:var(--purple);font-style:normal}
-  .acts .content{justify-content:flex-start;padding:10px 0}
-  .acts .sect-title{margin:2px 0 8px;flex:0 0 auto}
+  .acts .content{justify-content:flex-start;padding:1.2cqh 0}
+  .acts .sect-title{margin:.25cqh 0 1cqh;flex:0 0 auto}
   .acts .content > div{flex:1 1 auto;display:flex;flex-direction:column}
-  .acts .act{flex:1 1 0;align-items:center;padding:6px 2px}
-  .acts .act .num{font-size:17px;min-width:62px}
-  .acts .act .t{font-size:16px}
-  .acts .act .d{font-size:14.5px;line-height:1.33;margin-top:1px}
+  .acts .act{flex:1 1 0;align-items:center;padding:.8cqh 2px}
+  .acts .act .num{font-size:2.1cqh;min-width:8cqw}
+  .acts .act .t{font-size:2cqh}
+  .acts .act .d{font-size:1.8cqh;line-height:1.33;margin-top:1px}
 
   /* accolades */
-  .accolades .content{justify-content:space-between;padding:16px 0}
+  .accolades .content{justify-content:space-between;padding:2cqh 0}
   .accolades .sect-title{margin:0 0 2px}
   .accolades .medallions{margin:0}
 
   /* tallies */
-  .tallies .content{justify-content:flex-start;padding:12px 0}
+  .tallies .content{justify-content:flex-start;padding:1.5cqh 0}
   .tallies .sect-title{margin:2px 0 2px}
-  .tallies .hero{background:var(--ink);color:var(--yellow);text-align:center;padding:16px;margin:14px 0}
-  .tallies .hero .hn{font-family:'Playfair Display';font-weight:900;font-size:clamp(38px,9vw,48px);line-height:1}
-  .tallies .hero .hs{font-style:italic;color:var(--paper);font-size:13px;letter-spacing:.03em;margin-top:4px}
+  .tallies .hero{background:var(--ink);color:var(--yellow);text-align:center;padding:2cqh;margin:1.8cqh 0}
+  .tallies .hero .hn{font-family:'Playfair Display';font-weight:900;font-size:6cqh;line-height:1}
+  .tallies .hero .hs{font-style:italic;color:var(--paper);font-size:1.6cqh;letter-spacing:.03em;margin-top:.5cqh}
   .tallies .num-grid{flex:1 1 auto;grid-template-rows:1fr 1fr}
   .tallies .cell{display:flex;flex-direction:column;align-items:center;justify-content:center}
   .tallies .cell .cap{font-style:italic}
-  .medallions{display:flex;gap:12px;margin:14px 0 20px}
+  .medallions{display:flex;gap:2.4cqw;margin:1.8cqh 0 2.4cqh}
   .medal{flex:1;text-align:center}
-  .medal .disc{position:relative;width:clamp(52px,12vw,66px);aspect-ratio:1;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;overflow:hidden;font-family:'Playfair Display';font-weight:900;font-size:26px;color:var(--ink)}
+  .medal .disc{position:relative;width:8.2cqh;aspect-ratio:1;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 1cqh;overflow:hidden;font-family:'Playfair Display';font-weight:900;font-size:3.3cqh;color:var(--ink)}
   .medal .disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .medal .mt{font-family:'Playfair Display';font-weight:700;font-size:13px;line-height:1.15}
-  .medal .ms{font-style:italic;font-size:11.5px;color:var(--muted);margin-top:2px}
-  .chip-label{font-family:'Playfair Display';font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;line-height:1.2}
-  .chip{border:1px solid var(--ink);border-radius:999px;padding:6px 12px;font-size:13px}
+  .medal .mt{font-family:'Playfair Display';font-weight:700;font-size:1.65cqh;line-height:1.15}
+  .medal .ms{font-style:italic;font-size:1.45cqh;color:var(--muted);margin-top:2px}
+  .chip-label{font-family:'Playfair Display';font-size:1.4cqh;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:1cqh}
+  .chips{display:flex;flex-wrap:wrap;gap:1cqh;line-height:1.2}
+  .chip{border:1px solid var(--ink);border-radius:999px;padding:.7cqh 1.6cqw;font-size:1.6cqh}
   .chip.fun{background:#F6DDFE;border-color:var(--purple);color:#5c0054}
   .legend{display:flex;gap:16px;justify-content:center;font-family:'Playfair Display';font-size:11px;color:var(--muted);margin-top:14px}
   .legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;border:1px solid var(--ink);vertical-align:middle;margin-right:5px}
@@ -196,7 +196,7 @@
   .photo .fb .ic{font-size:30px;margin-bottom:6px}
   .photo .fb .cp{font-family:'Playfair Display';font-weight:700;font-size:13px}
   .photo .fb .fl{font-size:11px;color:var(--muted);margin-top:4px;font-family:monospace}
-  .figcap{font-style:italic;color:var(--muted);font-size:13px;margin-top:6px;text-align:center}
+  .figcap{font-style:italic;color:var(--muted);font-size:1.6cqh;margin-top:.7cqh;text-align:center}
   /* gallery */
   .page.gallery{container-type:size}
   .gallery .content{flex:1 1 auto;justify-content:flex-start;padding:10px 0;min-height:0;overflow:hidden}
@@ -207,39 +207,38 @@
   .gallery .cellp{display:flex;flex-direction:column;min-height:0}
   .gallery .cellp .photo{flex:1 1 auto;min-height:0;border-width:5px}
   .gallery .cellp .photo img{width:100%;height:100%;object-fit:cover}
-  .gallery .cellp .figcap{font-size:10.5px;margin-top:3px;line-height:1.2}
+  .gallery .cellp .figcap{font-size:1.3cqh;margin-top:.4cqh;line-height:1.2}
 
   /* nikki */
-  .nikki-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
-  @media(max-width:600px){.nikki-grid{grid-template-columns:1fr}}
-  .featuring{font-family:'Playfair Display';font-style:italic;font-size:19px;color:var(--purple);margin-top:12px}
+  .nikki-grid{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;align-items:center}
+  .featuring{font-family:'Playfair Display';font-style:italic;font-size:2.4cqh;color:var(--purple);margin-top:1.5cqh}
 
   /* critics */
-  .rave{border:1.5px solid var(--ink);padding:18px;margin-bottom:16px;background:var(--paper)}
-  .stars{color:var(--purple);letter-spacing:2px;font-size:15px;margin-bottom:6px}
-  .rave .qt{font-size:17px;line-height:1.4;font-style:italic}
-  .rave .src{font-family:'Playfair Display';font-weight:700;font-size:13px;margin-top:10px}
+  .rave{border:1.5px solid var(--ink);padding:2.2cqh;margin-bottom:2cqh;background:var(--paper)}
+  .stars{color:var(--purple);letter-spacing:2px;font-size:1.9cqh;margin-bottom:.7cqh}
+  .rave .qt{font-size:2.1cqh;line-height:1.4;font-style:italic}
+  .rave .src{font-family:'Playfair Display';font-weight:700;font-size:1.6cqh;margin-top:1.2cqh}
   .rave .src span{font-style:italic;font-weight:400;color:var(--muted)}
   .rave.add{border-style:dashed;text-align:center;color:var(--muted);font-family:'Playfair Display'}
-  .reviews .content{justify-content:center;gap:12px;padding:12px 0}
-  .reviews .sect-title{margin:0 0 4px;flex:0 0 auto;text-align:center}
-  .reviews .rave{margin:0;padding:13px 16px}
-  .reviews .rave .qt{font-size:13.5px;line-height:1.42}
-  .reviews .rave .src{margin-top:8px;text-align:right}
+  .reviews .content{justify-content:center;gap:1.5cqh;padding:1.5cqh 0}
+  .reviews .sect-title{margin:0 0 .5cqh;flex:0 0 auto;text-align:center}
+  .reviews .rave{margin:0;padding:1.6cqh 2cqw}
+  .reviews .rave .qt{font-size:1.7cqh;line-height:1.42}
+  .reviews .rave .src{margin-top:1cqh;text-align:right}
   .reviews.long .content{justify-content:center}
   .reviews.long .rave{border:none;padding:0}
-  .reviews.long .rave .qt{font-size:13px;line-height:1.5}
-  .reviews.xlong .rave .qt{font-size:11.7px;line-height:1.45}
-  .reviews.packed .content{gap:9px}
-  .reviews.packed .rave{padding:10px 14px}
-  .reviews.packed .rave .qt{font-size:11.8px;line-height:1.35}
-  .reviews.packed .stars{font-size:12px;margin-bottom:3px}
+  .reviews.long .rave .qt{font-size:1.65cqh;line-height:1.5}
+  .reviews.xlong .rave .qt{font-size:1.48cqh;line-height:1.45}
+  .reviews.packed .content{gap:1.1cqh}
+  .reviews.packed .rave{padding:1.2cqh 1.8cqw}
+  .reviews.packed .rave .qt{font-size:1.5cqh;line-height:1.35}
+  .reviews.packed .stars{font-size:1.5cqh;margin-bottom:.4cqh}
 
   /* sponsor */
-  .ad{border:2px solid var(--ink);padding:30px;text-align:center}
-  .ad .k{font-family:'Playfair Display';font-size:12px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
-  .ad .h{font-family:'Playfair Display';font-weight:900;font-size:clamp(26px,5vw,40px);margin:12px 0}
-  .ad .p{font-style:italic;color:var(--muted);font-size:16px}
+  .ad{border:2px solid var(--ink);padding:3.6cqh;text-align:center}
+  .ad .k{font-family:'Playfair Display';font-size:1.5cqh;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
+  .ad .h{font-family:'Playfair Display';font-weight:900;font-size:5cqh;margin:1.5cqh 0}
+  .ad .p{font-style:italic;color:var(--muted);font-size:2cqh}
 
   /* curtain call */
   .page.finale{background:var(--ink)}
@@ -247,10 +246,10 @@
   .finale .runhead .wm,.finale .runfoot{color:var(--paper)}
   .finale .content{text-align:center}
   .finale .kick{background:var(--yellow)}
-  .finale .big{font-family:'Playfair Display';font-weight:900;font-size:clamp(46px,11vw,86px);line-height:.95;color:var(--paper);margin:14px 0}
+  .finale .big{font-family:'Playfair Display';font-weight:900;font-size:10cqh;line-height:.95;color:var(--paper);margin:1.8cqh 0}
   .finale .big em{color:var(--yellow);font-style:italic}
-  .finale p{font-style:italic;font-size:18px;color:#d8cdd3;max-width:460px;margin:0 auto}
-  .btn{display:inline-block;margin-top:26px;background:var(--yellow);color:var(--ink);font-family:'Playfair Display';font-weight:700;letter-spacing:.05em;padding:14px 30px;border:2px solid var(--paper);cursor:pointer;font-size:16px}
+  .finale p{font-style:italic;font-size:2.2cqh;color:#d8cdd3;max-width:56cqw;margin:0 auto}
+  .btn{display:inline-block;margin-top:3.2cqh;background:var(--yellow);color:var(--ink);font-family:'Playfair Display';font-weight:700;letter-spacing:.05em;padding:1.6cqh 4cqw;border:2px solid var(--paper);cursor:pointer;font-size:2cqh}
   .btn:hover{transform:scale(1.04)}
 
   /* nav */
@@ -826,40 +825,50 @@
   /* size each page so the two-page spread (ratio 10:8) fits the viewport exactly —
      no slack means the pages stay glued to the centre spine through the flip */
   function pageDims(){
-    const maxW=window.innerWidth*0.94, maxH=window.innerHeight*0.9;
-    const h=Math.min(maxH, maxW/1.25);   /* spread width = 1.25 * page height */
+    const vw=window.innerWidth||document.documentElement.clientWidth||1024;
+    const vh=window.innerHeight||document.documentElement.clientHeight||768;
+    const maxW=vw*0.94, maxH=vh*0.9;
+    const h=Math.max(320, Math.min(maxH, maxW/1.25));  /* spread width = 1.25 * page height; never 0 */
     return {w:Math.round(h*0.625), h:Math.round(h)};
   }
-  const d0=pageDims();
-  const pageFlip=new St.PageFlip(stage,{
-    width:d0.w,height:d0.h,size:'fixed',
-    drawShadow:true,maxShadowOpacity:0.5,flippingTime:800,
-    showCover:true,usePortrait:false,mobileScrollSupport:false,
-    clickEventForward:true,useMouseEvents:true,swipeDistance:30
-  });
-  stage.classList.add('ready');           /* reveal all pages now that the book owns layout */
-  pageFlip.loadFromHTML(pages);
-  pages.forEach(p=>p.classList.add('active'));  /* both pages of a spread show their content */
-  pages.forEach(runCounts);                     /* count-ups run once */
-  pageFlip.on('flip',e=>onPage(e.data));
-  onPage(0);
-
-  /* build the cover picker from the pool */
-  if(coverSwitch && coverOpts.length>1){
-    coverOpts.forEach((o,i)=>{
-      const b=document.createElement('button');
-      b.className='cs-opt'+(i===coverIdx?' active':'');
-      b.textContent=o.dataset.label||('Cover '+(i+1));
-      b.addEventListener('click',e=>{e.stopPropagation();applyCover(i);});
-      coverSwitch.appendChild(b);
+  /* boot the book once the flip library + all resources are ready (avoids load-time races) */
+  let pageFlip;
+  function startBook(){
+    if(!window.St||!St.PageFlip){ return setTimeout(startBook,30); }
+    try{
+    const d0=pageDims();
+    pageFlip=new St.PageFlip(stage,{
+      width:d0.w,height:d0.h,size:'fixed',
+      drawShadow:true,maxShadowOpacity:0.5,flippingTime:800,
+      showCover:true,usePortrait:false,mobileScrollSupport:false,
+      clickEventForward:true,useMouseEvents:true,swipeDistance:30
     });
-    coverSwitch.classList.remove('hidden');
+    stage.classList.add('ready');           /* reveal all pages now that the book owns layout */
+    pageFlip.loadFromHTML(pages);
+    pages.forEach(p=>p.classList.add('active'));  /* both pages of a spread show their content */
+    pages.forEach(runCounts);                     /* count-ups run once */
+    pageFlip.on('flip',e=>onPage(e.data));
+    onPage(0);
+    /* build the cover picker from the pool */
+    if(coverSwitch && coverOpts.length>1){
+      coverOpts.forEach((o,i)=>{
+        const b=document.createElement('button');
+        b.className='cs-opt'+(i===coverIdx?' active':'');
+        b.textContent=o.dataset.label||('Cover '+(i+1));
+        b.addEventListener('click',e=>{e.stopPropagation();applyCover(i);});
+        coverSwitch.appendChild(b);
+      });
+      coverSwitch.classList.remove('hidden');
+    }
+    }catch(err){ console.error('Playbill init failed:',err); }
   }
+  if(document.readyState==='complete') startBook();
+  else addEventListener('load',startBook);
 
-  prevBtn.addEventListener('click',e=>{e.stopPropagation();pageFlip.flipPrev();});
-  nextBtn.addEventListener('click',e=>{e.stopPropagation();pageFlip.flipNext();});
-  addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){pageFlip.flipNext();}else if(e.key==='ArrowLeft'||e.key==='PageUp'){pageFlip.flipPrev();}});
-  addEventListener('resize',()=>{const d=pageDims();try{pageFlip.updateSetting?pageFlip.updateSetting({width:d.w,height:d.h}):pageFlip.update();}catch(_){}});
+  prevBtn.addEventListener('click',e=>{e.stopPropagation();if(pageFlip)pageFlip.flipPrev();});
+  nextBtn.addEventListener('click',e=>{e.stopPropagation();if(pageFlip)pageFlip.flipNext();});
+  addEventListener('keydown',e=>{if(!pageFlip)return;if(e.key==='ArrowRight'||e.key==='PageDown'){pageFlip.flipNext();}else if(e.key==='ArrowLeft'||e.key==='PageUp'){pageFlip.flipPrev();}});
+  addEventListener('resize',()=>{if(!pageFlip)return;const d=pageDims();try{pageFlip.updateSetting?pageFlip.updateSetting({width:d.w,height:d.h}):pageFlip.update();}catch(_){}});
 
   /* confetti */
   const cvs=document.getElementById('confetti'),cx=cvs.getContext('2d');
