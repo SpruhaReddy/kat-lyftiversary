@@ -129,6 +129,17 @@
   .cover-jellicle .jdisco img{max-width:96%;max-height:100%;object-fit:contain;display:block}
   .cover-jellicle .j-anniv{flex-shrink:0;font-family:'Playfair Display';font-weight:700;color:var(--yellow);font-size:2.4cqh;letter-spacing:.14em;text-align:center;padding:2cqh 0;border-top:1px solid rgba(246,211,17,.35)}
 
+  /* cover option C — "Wicked" (poster) */
+  .page.cover.cover-wicked{padding:0;align-items:stretch;background:#000;container-type:size}
+  .cover-wicked .content{padding:0;justify-content:flex-start;background:#000;height:100%;box-sizing:border-box}
+  .cover-wicked .wbanner{background:var(--yellow);text-align:center;padding:3cqh 4cqw 1.4cqh;flex-shrink:0}
+  .cover-wicked .wbanner .wm{font-family:'Playfair Display';font-weight:900;font-size:8.4cqh;line-height:1;color:var(--ink);display:inline-block;position:relative}
+  .cover-wicked .wbanner .wm sup{font-size:.2em;font-weight:700;top:-1.7em;margin-left:.1em}
+  .cover-wicked .wtheatre{font-family:'Playfair Display';font-weight:600;font-size:2.4cqh;letter-spacing:.28em;color:var(--ink);text-transform:uppercase;margin-top:.8cqh}
+  .cover-wicked .wbody{flex:1 1 auto;min-height:0;overflow:hidden;background:#fff}
+  .cover-wicked .wbody img{width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block}
+  .cover-wicked .w-anniv{flex-shrink:0;font-family:'Playfair Display';font-weight:700;color:var(--yellow);font-size:2.4cqh;letter-spacing:.14em;text-align:center;padding:2cqh 0;border-top:1px solid rgba(246,211,17,.35);background:#000}
+
   .bulbs{display:flex;gap:13px;justify-content:center;margin:18px 0}
   .bulbs i{width:9px;height:9px;border-radius:50%;background:var(--yellow);border:1px solid var(--ink)}
 
@@ -322,6 +333,14 @@
         <div class="jdisco"><img src="images/kat-disco.png" alt="Kat, in mirror-ball" /></div>
       </div>
       <div class="j-anniv">10TH ANNIVERSARY&nbsp;&nbsp;·&nbsp;&nbsp;2016 — 2026</div>
+    </div>
+  </section>
+  <!-- Option C · Wicked (poster) -->
+  <section class="page cover cover-wicked" data-label="Wicked">
+    <div class="content">
+      <div class="wbanner"><div class="wm">PLAYBILL<sup>®</sup></div><div class="wtheatre">THE LYFT THEATRE</div></div>
+      <div class="wbody"><img src="images/wicked-cover.png" alt="Wicked — the untold story of the witches of Oz" /></div>
+      <div class="w-anniv">10TH ANNIVERSARY&nbsp;&nbsp;·&nbsp;&nbsp;2016 — 2026</div>
     </div>
   </section>
 </template>
@@ -724,7 +743,7 @@
 <div class="hint">use ‹ › · arrow keys · or swipe</div>
 
 <!-- cover picker — shown on the closed book (left of the cover) -->
-<div id="cover-switch" class="hidden" aria-label="Choose a cover"><div class="cs-label">Pick a cover</div></div>
+<div id="cover-switch" class="hidden" aria-label="Select a show"><div class="cs-label">Select a show</div></div>
 
 <button id="music-toggle" aria-label="Play the overture"><span class="mt-icon">♪</span><span class="mt-text">Overture: press to play Kat's theme</span></button>
 <div id="yt-holder" aria-hidden="true"><div id="yt-player"></div></div>
